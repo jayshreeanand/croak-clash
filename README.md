@@ -1,3 +1,14 @@
+[block:7852204 txIndex:1]from: 0x0c1...b8804to: PublisherContract.(constructor)value: 0 weidata: 0x608...00000logs: 0hash: 0x6ec...ccb5a
+status 0x1 Transaction mined and execution succeed
+transaction hash 0xcb4a7cea1f682ea9b0cea584886791b26214daddcd69b5e1484e330ad998a051
+block hash 0x6ec8c4d78e74a790e245cb7d73c848a0bfa3ac57bfef33852c28f35a98fccb5a
+block number 7852204
+contract address 0x9f5f1fc029754a85b6fa891a0bc71fe1e26dfc1a
+from 0x0c134a03e170da9fad93f8aff117e362159b8804
+to PublisherContract.(constructor)
+gas 2822104 gas
+transaction cost 2798725 gas
+
 # Solidity Next.js Starter
 
 A starter repository for building full stack Ethereum dApps with [Solidity](https://soliditylang.org/) and [Next.js](https://nextjs.org/).
