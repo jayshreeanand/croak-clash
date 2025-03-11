@@ -1,33 +1,36 @@
-import "./globals.css";
-import "@rainbow-me/rainbowkit/styles.css";
-import "react-toastify/dist/ReactToastify.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Providers } from "./components/Providers";
-import { Header } from "./components/Header";
-import { ToastContainer } from "react-toastify";
-
-const inter = Inter({ subsets: ["latin"] });
-export const metadata: Metadata = {
-  title: "Solidity Next.js Starter",
-  description:
-    "A starter kit for building full stack Ethereum dApps with Solidity and Next.js",
-};
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import Head from 'next/head'
+import Script from 'next/script'
+import './globals.css'
+import NavHeader from '@/components/nav-header'
+import { Providers } from './providers'
+import { headers } from 'next/headers'
+import { cookieToInitialState } from 'wagmi'
+import { config } from './config'
+import { Footer } from '@/components/site-footer'
+const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
-        <ToastContainer />
-      </body>
-    </html>
-  );
+    children,
+}: Readonly<{
+    children: React.ReactNode
+}>) {
+    const initialState = cookieToInitialState(config, headers().get('cookie'))
+
+    return (
+        <html lang="en">
+            <Providers initialState={initialState}>
+                <body className={inter.className}>
+                    <NavHeader />
+                    <div className="flex flex-col min-h-screen">
+
+                    <main className="flex-grow">
+                    {children}</main>
+                    </div>
+                    <Footer/>
+                </body>
+            </Providers>
+        </html>
+    )
 }
