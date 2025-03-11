@@ -1,3 +1,5 @@
+Contract block: https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
+
 [block:7852204 txIndex:1]from: 0x0c1...b8804to: PublisherContract.(constructor)value: 0 weidata: 0x608...00000logs: 0hash: 0x6ec...ccb5a
 status 0x1 Transaction mined and execution succeed
 transaction hash 0xcb4a7cea1f682ea9b0cea584886791b26214daddcd69b5e1484e330ad998a051
