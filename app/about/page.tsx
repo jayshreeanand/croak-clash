@@ -40,9 +40,9 @@ const About = () => {
 				<Link
 					target="_blank"
 					className="text-blue-500 hover:underline"
-					href="https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A"
+					href="https://explorer.chain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A"
 				>
-					View master contract on Creator Testnet explorer
+					View master contract on  Testnet explorer
 				</Link>
 
 				{/* <Button

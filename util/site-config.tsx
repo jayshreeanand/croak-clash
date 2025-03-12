@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const siteConfig = {
 	title: "CrossfiConnect",
-	description: "Decentralized Social media and Publishing platform based on CrossFi Blockchain",
+	description: "Decentralized Social media and Publishing platform based on CrossFi Blockchain to empower creators",
 	isLocal: process.env.NEXT_PUBLIC_ENV === "development",
 	masterAddress: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string,
 	admin: {
@@ -22,7 +22,7 @@ export const siteConfig = {
 			description: (
 				<span>
 					The CrossfiConnect contract is deployed at address:&nbsp;
-					https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
+					https://test.xfiscan.com/address/0x3ab1de17e30e4fa29a375120c1bcb1e1cb933332
 				</span>
 			),
 		},
