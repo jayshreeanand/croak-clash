@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const siteConfig = {
 	title: "CrossfiConnect",
-	description: "Decentralized Social media and Publishing platform based on Creator Blockchain",
+	description: "Decentralized Social media and Publishing platform based on CrossFi Blockchain",
 	isLocal: process.env.NEXT_PUBLIC_ENV === "development",
 	masterAddress: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string,
 	admin: {
@@ -28,7 +28,7 @@ export const siteConfig = {
 		},
 		
 	],
-	githubUrl: "https://github.com/jayshreeanand/creator-hub",
+	githubUrl: "https://github.com/jayshreeanand/crossfi-connect",
 	steps: [
 		{
 			title: "Create",
@@ -42,7 +42,7 @@ export const siteConfig = {
 		{
 			title: "Collaborate",
 			description:
-				"Creators and supporters collaborate to bring the project to life. Creators can auto-generate scripts for sent requests using Creator Blockchain.",
+				"Creators and supporters collaborate to bring the project to life. Creators can auto-generate scripts for sent requests using CrossFi Blockchain.",
 		},
 	],
 };

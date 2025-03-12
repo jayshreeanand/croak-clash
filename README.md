@@ -1,6 +1,6 @@
-# Crossfi Connect
+# Creator Hub
 
-### Decentralized Social Media and Publishing Platform Based on Creator Blockchain
+### Decentralized Social Media and Publishing Platform Based on CrossFi Blockchain
 
 - Smart contract-backed social media and blog platform enabling users to publish various content types, including blog posts, web pages, videos, and podcasts, catering to a wide range of creators.
 
@@ -10,9 +10,9 @@
 
 # Contract address
 
-The CrossfiConnect contract is deployed at address: https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
+The CrossFiConnect contract is deployed at address: https://test.xfiscan.com/address/0x60afe56a2ec2fa66a0c71b2f9f8133d77f94b8e2
 
-View master contract on Creator Testnet explorer
+View master contract on CrossFi Testnet explorer
 
 #### Contracts Stack
 
@@ -29,7 +29,7 @@ View master contract on Creator Testnet explorer
 - `yarn start` - Starts your local Hardhat network
 - `yarn test` - Tests `CreatorContract.sol`'s functionality
 - `yarn deploy` - Deploys `CreatorContract.sol` to your local Hardhat network
-- `yarn deploy:sepolia` - Deploys `CreatorContract.sol` to the Creator test network
+- `yarn deploy:sepolia` - Deploys `CreatorContract.sol` to the CrossFi Testnet
 - `yarn format` - Formats all code using Prettier
 
 ### App
