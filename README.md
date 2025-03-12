@@ -1,4 +1,4 @@
-# Creator Hub
+# Crossfi Connect
 
 ### Decentralized Social Media and Publishing Platform Based on Creator Blockchain
 
@@ -10,7 +10,7 @@
 
 # Contract address
 
-The CreatorHub contract is deployed at address: https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
+The CrossfiConnect contract is deployed at address: https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
 
 View master contract on Creator Testnet explorer
 

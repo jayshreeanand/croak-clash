@@ -1,4 +1,4 @@
-export interface CreatorHubData {
+export interface CrossfiConnectData {
     post: string
     name: string
     description: string

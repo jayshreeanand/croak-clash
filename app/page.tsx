@@ -8,7 +8,7 @@ export default function Home() {
 		<main className="p-24 max-w-[900px] centered content-center m-auto">
 			<div className="columns-1 gap-4 md:columns-1">
 				<div>
-				<img src="/blockchain.jpg" alt="creatorhub" className="mt-6" />
+				<img src="/blockchain.jpg" alt="crossficonnect" className="mt-6" />
 
 					<div className="text-xl font-bold pt-8">{siteConfig.description}.</div>
 

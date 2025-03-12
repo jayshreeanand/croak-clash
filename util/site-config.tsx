@@ -2,7 +2,7 @@ import { getExplorerUrl } from "@/lib/utils";
 import Link from "next/link";
 
 export const siteConfig = {
-	title: "CreatorHub",
+	title: "CrossfiConnect",
 	description: "Decentralized Social media and Publishing platform based on Creator Blockchain",
 	isLocal: process.env.NEXT_PUBLIC_ENV === "development",
 	masterAddress: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string,
@@ -21,7 +21,7 @@ export const siteConfig = {
 			title: `Contract address`,
 			description: (
 				<span>
-					The CreatorHub contract is deployed at address:&nbsp;
+					The CrossfiConnect contract is deployed at address:&nbsp;
 					https://explorer.creatorchain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A
 				</span>
 			),

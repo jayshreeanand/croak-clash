@@ -58,7 +58,7 @@ interface Params {
 	requestId: string;
 }
 
-export default function CreatorHub({ params }: { params: Params }) {
+export default function CrossfiConnect({ params }: { params: Params }) {
 	const [sendLoading, setSendLoading] = useState(false);
 	const [donation, setDonation] = useState(0);
 	const [scriptLoading, setScriptLoading] = useState(false);

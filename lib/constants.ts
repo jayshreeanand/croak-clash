@@ -1,7 +1,7 @@
-import { ContractMetadata, CreatorHubData } from "./types";
+import { ContractMetadata, CrossfiConnectData } from "./types";
 import { formatDate } from "./utils";
 
-export const DEMO_REQUEST: CreatorHubData = {
+export const DEMO_REQUEST: CrossfiConnectData = {
 	post: "defi-tutorial",
 	name: "How to build a deFi app",
 	description: "This is a Post",
