@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/util/site-config";
 
@@ -9,6 +8,7 @@ const Home = () => {
 	const [activeAI, setActiveAI] = useState(0);
 	const aiNames = ["Nexus", "Synapse", "Quantum", "Cipher", "Vortex"];
 	const aiColors = ["#FF5733", "#33FF57", "#3357FF", "#F033FF", "#FF9933"];
+	const aiEmojis = ["🤖", "🧠", "🔮", "🔐", "🌪️"];
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -21,14 +21,8 @@ const Home = () => {
 		<div className="min-h-screen bg-black text-white overflow-hidden">
 			{/* Hero Section */}
 			<section className="relative h-screen flex items-center justify-center">
-				<div className="absolute inset-0 z-0">
-					<Image
-						src="/images/ai-battle.jpg"
-						alt="AI Battle"
-						layout="fill"
-						objectFit="cover"
-						className="opacity-40"
-					/>
+				<div className="absolute inset-0 z-0 flex items-center justify-center">
+					<div className="text-9xl opacity-40">{aiEmojis[activeAI]}</div>
 				</div>
 				
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70 z-10"></div>
@@ -95,13 +89,8 @@ const Home = () => {
 								whileHover={{ scale: 1.05 }}
 								onClick={() => setActiveAI(index)}
 							>
-								<div className="aspect-square relative">
-									<Image
-										src={`/images/ai-faction-${index + 1}.jpg`}
-										alt={`AI Faction ${name}`}
-										layout="fill"
-										objectFit="cover"
-									/>
+								<div className="aspect-square relative flex items-center justify-center text-6xl">
+									<span>{aiEmojis[index]}</span>
 								</div>
 								<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
 								<div className="absolute bottom-0 left-0 right-0 p-4">
