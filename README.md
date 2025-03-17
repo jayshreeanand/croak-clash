@@ -1,66 +1,109 @@
 # AI Apocalypse Chain
 
-![logo](https://github.com/user-attachments/assets/f0c41658-796e-4ad4-9b17-de1fc368ce7f)
+![AI Apocalypse Chain Banner](https://your-image-url.com)
 
-### Decentralized Social Media and Publishing Platform Based on CrossFi Blockchain
+## Overview
 
-- Smart contract-backed social media and blog platform empowering users to publish various content types, including blog posts, web pages, videos, and podcasts, catering to a wide range of creators.
+The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built using **NEAR chain and Aurora Cloud**. It simulates an **autonomous war between AI factions**, where agents evolve, strategize, and battle for control. Players can interact with these agents, choose sides, and influence the war’s outcome in an ever-changing blockchain ecosystem.
 
-- Smart contracts to facilitate direct donations, subscriptions, or pay-per-view models, empowering creators to monetize their content without intermediaries.
+## Features
 
-- Secure and transparent payment transactions between creators and supporters.
+### AI Battleground
 
-This project is deployed at https://crossfi-connect.vercel.app/
+- AI agents **fight autonomously**, making strategic decisions on-chain.
+- **Dynamic Evolution**: Surviving agents gain experience, level up, and adapt.
+- **Faction-based strategy**: Human Resistance, AI Overlords, and Rogue AI.
 
-# Contract address
+### Smart Contract-Driven Economy
 
-The CrossFiConnect contract is deployed at address: https://test.xfiscan.com/address/0x3ab1de17e30e4fa29a375120c1bcb1e1cb933332
+- **AI-powered NFTs**: Each AI agent is minted as an NFT with unique attributes.
+- **On-chain resource scarcity**: AI factions battle for limited energy and resources.
+- **Staking mechanism**: Players can support AI factions with tokenized assets.
 
-View master contract on CrossFi Testnet explorer
+### Decentralized & Autonomous Simulation
 
-#### Contracts Stack
+- Runs on **NEAR’s Aurora Virtual Chain** for seamless, low-cost transactions.
+- AI agents interact with each other and execute decisions **without human intervention**.
+- Future governance through **DAO-based faction voting**.
 
-- [Alchemy](https://www.alchemy.com/)
-- [Hardhat](https://hardhat.org/)
-- [Mocha](https://mochajs.org/)
-- [Chai](https://www.chaijs.com/)
-- [Solidity](https://soliditylang.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Prettier](https://prettier.io/)
+## Tech Stack
 
-#### Contracts Scripts
+- **Blockchain:** NEAR Protocol (Aurora Cloud Virtual Chain)
+- **Smart Contracts:** Rust / Solidity
+- ** NEAR AI agents**
+- **Frontend:** React.js + Tailwind CSS
+- **AI Logic:** Python-based models integrated via NEAR AI
+- **Wallet Integration:** NEAR Wallet / MetaMask (Aurora EVM)
 
-- `yarn start` - Starts your local Hardhat network
-- `yarn test` - Tests `CreatorContract.sol`'s functionality
-- `yarn deploy` - Deploys `CreatorContract.sol` to your local Hardhat network
-- `yarn deploy:sepolia` - Deploys `CreatorContract.sol` to the CrossFi Testnet
-- `yarn format` - Formats all code using Prettier
+## Installation & Setup
 
-### App
+### Prerequisites
 
-`packages/app` - All client application files.
+- Node.js v16+
+- NEAR Wallet / MetaMask
+- Aurora Cloud Account
 
-#### App Stack
+### Clone the Repository
 
-- [Alchemy](https://www.alchemy.com/)
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [viem](https://viem.sh/)
-- [wagmi](https://wagmi.sh/)
-- [RainbowKit](https://www.rainbowkit.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Prettier](https://prettier.io/)
+```bash
+git clone https://github.com/your-repo/ai-apocalypse-chain.git
+cd ai-apocalypse-chain
+```
 
-#### App Scripts
+### Install Dependencies
 
-- `yarn dev` - Starts the Next.js local development environment
-- `yarn build` - Creates an optimised production build of your app
-- `yarn start` - Starts the Next.js application in production mode
-- `yarn lint` - Checks for problems in your code using ESLint
-- `yarn format` - Formats all code using Prettier
+```bash
+npm install
+```
 
-## Prerequisites
+### Configure Environment Variables
 
-- [Node](https://nodejs.org/en/download/)
-- [MetaMask](https://metamask.io/download.html)
+Create a `.env` file and add your NEAR/Aurora credentials:
 
+```plaintext
+REACT_APP_NEAR_RPC_URL=your_rpc_url
+REACT_APP_CONTRACT_ADDRESS=your_contract_address
+```
+
+### Start the Frontend
+
+```bash
+npm run dev
+```
+
+## 📜 Smart Contract Deployment
+
+1. **Compile the contract:**
+   ```bash
+   cargo build --target wasm32-unknown-unknown --release
+   ```
+2. **Deploy to Aurora Virtual Chain:**
+   ```bash
+   near deploy --accountId=<your_account> --wasmFile=target/wasm32-unknown-unknown/release/your_contract.wasm
+   ```
+3. **Verify Deployment:** Run:
+   ```bash
+   near view <your_contract> getGameState
+   ```
+
+## Usage
+
+1. **Connect Wallet:** Users connect their NEAR/MetaMask wallet.
+2. **Join a Faction:** Choose between Human Resistance, AI Overlords, or Rogue AI.
+3. **Deploy AI Agents:** Mint AI warriors that battle and evolve.
+4. **Stake Tokens:** Influence AI evolution and warfare.
+5. **Watch the AI Apocalypse Unfold!**
+
+## Future Roadmap
+
+- **AI Agent Upgrades**: Smarter decision-making & memory retention.
+- **Fully On-Chain Governance**: DAO-based voting for faction control.
+- **Cross-Chain AI Battles**: Expand into multiple blockchain ecosystems.
+
+## Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
