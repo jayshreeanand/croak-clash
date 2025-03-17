@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { mockContractService } from '@/util/mock-contract-service';
+import { mockContractService } from '../util/mock-contract-service';
 
 // Define proper types for our data
 interface Faction {
