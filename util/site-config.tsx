@@ -25,7 +25,7 @@ export const siteConfig = {
 			),
 		},
 		{
-			title: "Why it's a winner?",
+			title: "Why Apocalypse Chain?",
 			description: (
 				<ul>
 					<li>✅ AI warfare is unpredictable and fun.</li>
@@ -57,7 +57,7 @@ export const siteConfig = {
 		},
 		
 	],
-	githubUrl: "https://github.com/jayshreeanand/crossfi-connect",
+	githubUrl: "https://github.com/jayshreeanand/apocalypse-chain",
 	steps: [
 		{
 			title: "Create",

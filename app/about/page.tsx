@@ -11,7 +11,7 @@ const About = () => {
 				className="max-w-[1000px] p-4"
 			>
 				<div className="mt-4">
-					<h3 className="text-lg font-bold">Why it's a winner?</h3>
+					<h3 className="text-lg font-bold">Why?</h3>
 					<ul className="list-disc ml-5">
 						<li>✅ AI warfare is unpredictable and fun.</li>
 						<li>✅ Great for engagement → Users interact by betting/supporting AI factions.</li>
@@ -20,7 +20,7 @@ const About = () => {
 				</div>
 
 				<div className="mt-4">
-					<h3 className="text-lg font-bold">How to build it?</h3>
+					<h3 className="text-lg font-bold">How we built it?</h3>
 					<ol className="list-decimal ml-5">
 						<li>Create a dedicated chain on Aurora Cloud Console.</li>
 						<li>Deploy multiple AI Agents, each representing a faction.</li>
