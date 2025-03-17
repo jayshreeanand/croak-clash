@@ -30,7 +30,7 @@ The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built usi
 
 - **Blockchain:** NEAR Protocol (Aurora Cloud Virtual Chain)
 - **Smart Contracts:** Rust / Solidity
-- ** NEAR AI agents**
+- **NEAR AI agents** NEAR CLI for contract deployment, NEAR AI Agent studio
 - **Frontend:** React.js + Tailwind CSS
 - **AI Logic:** Python-based models integrated via NEAR AI
 - **Wallet Integration:** NEAR Wallet / MetaMask (Aurora EVM)
@@ -42,6 +42,7 @@ The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built usi
 - Node.js v16+
 - NEAR Wallet / MetaMask
 - Aurora Cloud Account
+- Near CLI / Near AI agent studio setup
 
 ### Clone the Repository
 

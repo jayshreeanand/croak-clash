@@ -126,14 +126,14 @@ const EvolutionLab = () => {
 
             <div className="flex items-center justify-between mb-8">
                 <div className="text-lg">
-                    <span className="text-gray-400">Available Credits:</span> 
+                    <span className="text-gray-400">Available $WNEAR:</span> 
                     <span className="ml-2 font-bold text-yellow-400">{credits}</span>
                 </div>
                 <button 
                     className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors"
                     onClick={() => setCredits(credits + 200)}
                 >
-                    + Get 200 Credits
+                    + Get 200 $WNEAR
                 </button>
             </div>
 

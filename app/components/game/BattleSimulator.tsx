@@ -255,7 +255,7 @@ const BattleSimulator = () => {
                                         >
                                             <div className="text-5xl mb-2">{attacker.emoji}</div>
                                             <div className="font-bold">{attacker.name}</div>
-                                            <div className="text-xs text-gray-400 mb-1">HP: {agents.find(a => a.id === attacker.id)?.health || attacker.health}%</div>
+                                            <div className="text-xs text-gray-400 mb-1">$WNEAR {agents.find(a => a.id === attacker.id)?.health || attacker.health}%</div>
                                             <div className="w-24 bg-gray-700 rounded-full h-2 mx-auto">
                                                 <div 
                                                     className={`${getHealthColor(agents.find(a => a.id === attacker.id)?.health || attacker.health)} h-2 rounded-full`} 
@@ -277,7 +277,7 @@ const BattleSimulator = () => {
                                         >
                                             <div className="text-5xl mb-2">{defender.emoji}</div>
                                             <div className="font-bold">{defender.name}</div>
-                                            <div className="text-xs text-gray-400 mb-1">HP: {agents.find(a => a.id === defender.id)?.health || defender.health}%</div>
+                                            <div className="text-xs text-gray-400 mb-1">$WNEAR {agents.find(a => a.id === defender.id)?.health || defender.health}%</div>
                                             <div className="w-24 bg-gray-700 rounded-full h-2 mx-auto">
                                                 <div 
                                                     className={`${getHealthColor(agents.find(a => a.id === defender.id)?.health || defender.health)} h-2 rounded-full`} 
