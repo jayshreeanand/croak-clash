@@ -1,68 +1,37 @@
 "use client";
 
 import BasicCard from "@/components/basic-card";
-import RenderObject from "@/components/render-object";
-import { Button } from "@/components/ui/button";
-import { useEthersSigner } from "@/lib/get-signer";
-import { getExplorerUrl } from "@/lib/utils";
-import { siteConfig } from "@/util/site-config";
-import Link from "next/link";
-import { useState } from "react";
-import { Chain } from "viem";
-import { useChainId, useChains } from "wagmi";
 
 const About = () => {
-	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState<any>(null);
-
-	const chainId = useChainId();
-	const chains = useChains();
-	const currentChain: Chain | undefined = (chains || []).find((c) => c.id === chainId);
-
-	const signer = useEthersSigner();
-
 	return (
-		<div className="flex flex-row items-center justify-center mt-8">
+		<div className="flex flex-col items-center justify-center mt-8">
 			<BasicCard
-				title="About CrossfiConnect"
-				description="Learn more about CrossfiConnect and how it works."
+				title="AI Apocalypse Chain – AI Agents Battle for Blockchain Domination"
+				description="Concept: A chaos-driven blockchain where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive."
 				className="max-w-[1000px] p-4"
 			>
-				{siteConfig.about.map((section, index) => (
-					<div key={index} className="mt-4">
-						<h3 className="text-lg font-bold">{section.title}</h3>
-						<div>{section.description}</div>
-					</div>
-				))}
+				<div className="mt-4">
+					<h3 className="text-lg font-bold">Why it's a winner?</h3>
+					<ul className="list-disc ml-5">
+						<li>✅ AI warfare is unpredictable and fun.</li>
+						<li>✅ Great for engagement → Users interact by betting/supporting AI factions.</li>
+						<li>✅ Creative governance → AI agents evolve based on their victories.</li>
+					</ul>
+				</div>
 
-				<br />
-
-				<Link
-					target="_blank"
-					className="text-blue-500 hover:underline"
-					href="https://explorer.chain.io/address/0x9F5F1fc029754A85B6FA891A0BC71fe1e26DfC1A"
-				>
-					View master contract on  Testnet explorer
-				</Link>
-
-				{/* <Button
-                    onClick={getSchemaId}
-                    disabled={loading}
-                    className="mt-3"
-                >
-                    {loading && (
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    Get Schema ID
-                </Button> */}
-
-				{result && (
-					<div className="my-2">
-						<RenderObject title="Result" obj={result} />
-					</div>
-				)}
+				<div className="mt-4">
+					<h3 className="text-lg font-bold">How to build it?</h3>
+					<ol className="list-decimal ml-5">
+						<li>Create a dedicated chain on Aurora Cloud Console.</li>
+						<li>Deploy multiple AI Agents, each representing a faction.</li>
+						<li>AI decides when to attack, defend, or form alliances.</li>
+						<li>Users can place bets on the winning faction.</li>
+						<li>Use smart contracts to distribute rewards to users backing the strongest AI.</li>
+					</ol>
+				</div>
 			</BasicCard>
 		</div>
 	);
 };
+
 export default About;

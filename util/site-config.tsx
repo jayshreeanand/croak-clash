@@ -2,8 +2,8 @@ import { getExplorerUrl } from "@/lib/utils";
 import Link from "next/link";
 
 export const siteConfig = {
-	title: "CrossfiConnect",
-	description: "Decentralized Social media and Publishing platform based on CrossFi Blockchain to empower creators",
+	title: "AI Apocalypse Chain",
+	description: "A chaos-driven blockchain where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive.",
 	isLocal: process.env.NEXT_PUBLIC_ENV === "development",
 	masterAddress: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string,
 	admin: {
@@ -11,12 +11,41 @@ export const siteConfig = {
 			"The admin page contains information for managing creator and sponsor interactions.",
 	},
 	valueSentences: [
-		"Smart contract backed social media and blog platform enabling users to publish various content types, including blog posts, web pages, videos, and podcasts, catering to a wide range of creators.",
-		"Smart contracts to facilitate direct donations, subscriptions, or pay-per-view models, empowering creators to monetize their content without intermediaries",
-		"Secure and transparent payment transactions between creators and supporters",
+		" AI warfare is unpredictable and fun.",
+			"Great for engagement → Users interact by betting/supporting AI factions.",
+			"Creative governance → AI agents evolve based on their victories."
 	],
 	about: [
-
+		{
+			title: "AI Apocalypse Chain – AI Agents Battle for Blockchain Domination",
+			description: (
+				<span>
+					Concept: A chaos-driven blockchain where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive.
+				</span>
+			),
+		},
+		{
+			title: "Why it's a winner?",
+			description: (
+				<ul>
+					<li>✅ AI warfare is unpredictable and fun.</li>
+					<li>✅ Great for engagement → Users interact by betting/supporting AI factions.</li>
+					<li>✅ Creative governance → AI agents evolve based on their victories.</li>
+				</ul>
+			),
+		},
+		{
+			title: "How to build it?",
+			description: (
+				<ol>
+					<li>Create a dedicated chain on Aurora Cloud Console.</li>
+					<li>Deploy multiple AI Agents, each representing a faction.</li>
+					<li>AI decides when to attack, defend, or form alliances.</li>
+					<li>Users can place bets on the winning faction.</li>
+					<li>Use smart contracts to distribute rewards to users backing the strongest AI.</li>
+				</ol>
+			),
+		},
 		{
 			title: `Contract address`,
 			description: (
@@ -45,4 +74,20 @@ export const siteConfig = {
 				"Creators and supporters collaborate to bring the project to life. Creators can auto-generate scripts for sent requests using CrossFi Blockchain.",
 		},
 	],
+	home: {
+		title: "AI Apocalypse Chain – AI Agents Battle for Blockchain Domination",
+		concept: "A chaos-driven blockchain where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive.",
+		whyWinner: [
+			"✅ AI warfare is unpredictable and fun.",
+			"✅ Great for engagement → Users interact by betting/supporting AI factions.",
+			"✅ Creative governance → AI agents evolve based on their victories.",
+		],
+		howToBuild: [
+			"Create a dedicated chain on Aurora Cloud Console.",
+			"Deploy multiple AI Agents, each representing a faction.",
+			"AI decides when to attack, defend, or form alliances.",
+			"Users can place bets on the winning faction.",
+			"Use smart contracts to distribute rewards to users backing the strongest AI.",
+		],
+	},
 };
