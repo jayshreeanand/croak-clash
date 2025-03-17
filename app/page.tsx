@@ -3,17 +3,12 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/util/site-config";
-import { web3, contract } from './utils/web3';
-import FactionManager from './components/FactionManager';
-import BattleInterface from './components/BattleInterface';
-import Navbar from './components/Navbar';
 
 const Home = () => {
 	const [activeAI, setActiveAI] = useState(0);
 	const aiNames = ["Nexus", "Synapse", "Quantum", "Cipher", "Vortex"];
 	const aiColors = ["#FF5733", "#33FF57", "#3357FF", "#F033FF", "#FF9933"];
 	const aiEmojis = ["🤖", "🧠", "🔮", "🔐", "🌪️"];
-	const [account, setAccount] = useState('');
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -22,21 +17,8 @@ const Home = () => {
 		return () => clearInterval(interval);
 	}, []);
 
-	useEffect(() => {
-		const loadAccount = async () => {
-			const accounts = await web3.eth.getAccounts();
-			setAccount(accounts[0]);
-		};
-		loadAccount();
-	}, []);
-
 	return (
 		<div className="min-h-screen bg-black text-white overflow-hidden">
-			<Navbar />
-			<h1 className="text-4xl font-bold mb-8">AI Apocalypse Chain</h1>
-			<FactionManager contract={contract} account={account} />
-			<BattleInterface contract={contract} account={account} />
-
 			{/* Hero Section */}
 			<section className="relative h-screen flex items-center justify-center">
 				<div className="absolute inset-0 z-0 flex items-center justify-center">
