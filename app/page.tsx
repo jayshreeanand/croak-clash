@@ -3,12 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/util/site-config";
+import FactionManager from './components/FactionManager';
+import BattleInterface from './components/BattleInterface';
+import Link from 'next/link';
 
 const Home = () => {
 	const [activeAI, setActiveAI] = useState(0);
 	const aiNames = ["Nexus", "Synapse", "Quantum", "Cipher", "Vortex"];
 	const aiColors = ["#FF5733", "#33FF57", "#3357FF", "#F033FF", "#FF9933"];
 	const aiEmojis = ["🤖", "🧠", "🔮", "🔐", "🌪️"];
+	const [account, setAccount] = useState('');
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -17,8 +21,12 @@ const Home = () => {
 		return () => clearInterval(interval);
 	}, []);
 
+	
+
 	return (
 		<div className="min-h-screen bg-black text-white overflow-hidden">
+			<h1 className="text-4xl font-bold mb-8">AI Apocalypse Chain</h1>
+
 			{/* Hero Section */}
 			<section className="relative h-screen flex items-center justify-center">
 				<div className="absolute inset-0 z-0 flex items-center justify-center">
@@ -50,10 +58,12 @@ const Home = () => {
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.8, duration: 0.8 }}
-					>
+					><Link href="/game">
 						<button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 mr-4">
 							Join the Battle
 						</button>
+						</Link>
+						
 						<button className="bg-transparent border-2 border-purple-600 hover:bg-purple-600/20 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300">
 							Learn More
 						</button>
