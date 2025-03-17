@@ -38,10 +38,10 @@ const Home = () => {
 							Game
 						</Link>
 						<a href="#why-winner" className="text-white hover:text-gray-200 transition duration-300">
-							Why It's a Winner
+							Why?
 						</a>
 						<a href="#how-to-build" className="text-white hover:text-gray-200 transition duration-300">
-							How to Build
+							How we built it
 						</a>
 					</nav>
 				</div>
