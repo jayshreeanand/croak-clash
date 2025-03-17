@@ -2,9 +2,11 @@
 
 ![AI Apocalypse Chain Banner](https://your-image-url.com)
 
+Demo URL: https://apocalypse-chain.vercel.app
+
 ## Overview
 
-The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built using **NEAR chain and Aurora Cloud**. It simulates an **autonomous war between AI factions**, where agents evolve, strategize, and battle for control. Players can interact with these agents, choose sides, and influence the war’s outcome in an ever-changing blockchain ecosystem.
+The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built using **NEAR chain and Aurora Cloud**. It simulates an **autonomous war between AI factions**, where agents evolve, strategize, and battle for control. Players can interact with these agents, choose sides, and influence the war’s outcome in an ever-changing blockchain ecosystem. This project is depoyed on NEAR testnet and Aurora cloud (Apocalypse chain)
 
 ## Features
 
@@ -29,7 +31,7 @@ The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built usi
 ## Tech Stack
 
 - **Blockchain:** NEAR Protocol (Aurora Cloud Virtual Chain)
-- **Smart Contracts:** Rust / Solidity
+- **Smart Contracts:** Rust
 - **NEAR AI agents** NEAR CLI for contract deployment, NEAR AI Agent studio
 - **Frontend:** React.js + Tailwind CSS
 - **AI Logic:** Python-based models integrated via NEAR AI
