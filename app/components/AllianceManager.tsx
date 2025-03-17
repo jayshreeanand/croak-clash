@@ -2,15 +2,26 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import mockContractService from '../utils/mockContractService';
+import { mockContractService } from '@/util/mock-contract-service';
+
+// Define proper types for our data
+interface Faction {
+    id: number;
+    name: string;
+    power: number;
+    members: number;
+    victories: number;
+    color: string;
+    emoji: string;
+}
 
 const AllianceManager = () => {
-    const [userFaction, setUserFaction] = useState(null);
-    const [factions, setFactions] = useState([]);
-    const [alliances, setAlliances] = useState([]);
-    const [selectedFaction, setSelectedFaction] = useState(null);
+    const [factions, setFactions] = useState<Faction[]>([]);
+    const [userFaction, setUserFaction] = useState<Faction | null>(null);
+    const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
+    const [allianceProposed, setAllianceProposed] = useState(false);
+    const [allianceStatus, setAllianceStatus] = useState<'none' | 'pending' | 'accepted' | 'rejected'>('none');
     const [isLoading, setIsLoading] = useState(true);
-    const [isForming, setIsForming] = useState(false);
 
     useEffect(() => {
         const loadData = async () => {
@@ -20,184 +31,156 @@ const AllianceManager = () => {
                 
                 const factionsList = await mockContractService.getFactions();
                 setFactions(factionsList);
-                
-                const alliancesList = await mockContractService.getAlliances();
-                setAlliances(alliancesList);
-                
-                setIsLoading(false);
             } catch (error) {
-                console.error('Error loading data:', error);
+                console.error("Error loading faction data:", error);
+            } finally {
                 setIsLoading(false);
             }
         };
-        
+
         loadData();
     }, []);
 
-    const handleFormAlliance = async () => {
-        if (!userFaction || !selectedFaction) return;
+    const proposeAlliance = async () => {
+        if (!selectedFaction) return;
         
-        try {
-            setIsForming(true);
-            await mockContractService.formAlliance(userFaction.id, selectedFaction.id);
-            
-            // Refresh alliances
-            const updatedAlliances = await mockContractService.getAlliances();
-            setAlliances(updatedAlliances);
-            
-            setSelectedFaction(null);
-            setIsForming(false);
-        } catch (error) {
-            console.error('Error forming alliance:', error);
-            setIsForming(false);
+        setAllianceProposed(true);
+        setAllianceStatus('pending');
+        
+        // Simulate network delay
+        setTimeout(() => {
+            // 70% chance of acceptance for demo purposes
+            const accepted = Math.random() > 0.3;
+            setAllianceStatus(accepted ? 'accepted' : 'rejected');
+        }, 2000);
+    };
+
+    const getFactionColor = (faction: Faction) => {
+        switch (faction.color) {
+            case 'blue': return 'text-blue-400';
+            case 'red': return 'text-red-400';
+            case 'green': return 'text-green-400';
+            case 'purple': return 'text-purple-400';
+            default: return 'text-white';
         }
     };
 
-    const isAllied = (faction1Id, faction2Id) => {
-        return alliances.some(
-            a => (a.faction1Id === faction1Id && a.faction2Id === faction2Id) || 
-                 (a.faction1Id === faction2Id && a.faction2Id === faction1Id)
-        );
-    };
-
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
-        return date.toLocaleDateString();
+    const getFactionBgColor = (faction: Faction) => {
+        switch (faction.color) {
+            case 'blue': return 'bg-blue-900/30';
+            case 'red': return 'bg-red-900/30';
+            case 'green': return 'bg-green-900/30';
+            case 'purple': return 'bg-purple-900/30';
+            default: return 'bg-gray-800';
+        }
     };
 
     if (isLoading) {
         return (
-            <div className="p-6 bg-gray-900 rounded-xl shadow-lg mt-8">
-                <h2 className="text-3xl font-bold text-white mb-6">Alliances</h2>
-                <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                </div>
-            </div>
-        );
-    }
-
-    if (!userFaction) {
-        return (
-            <div className="p-6 bg-gray-900 rounded-xl shadow-lg mt-8">
-                <h2 className="text-3xl font-bold text-white mb-6">Alliances</h2>
-                <div className="text-center py-8">
-                    <p className="text-xl text-gray-400">Join or create a faction to form alliances</p>
+            <div className="container mx-auto px-4 py-12">
+                <div className="flex justify-center items-center h-64">
+                    <div className="text-xl text-gray-400">Loading faction data...</div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="p-6 bg-gray-900 rounded-xl shadow-lg mt-8">
-            <h2 className="text-3xl font-bold text-white mb-6">Alliances</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="p-4 bg-gray-800 rounded-lg">
-                    <h3 className="text-xl font-bold mb-4">Form New Alliance</h3>
-                    
-                    {selectedFaction ? (
-                        <div className="mb-4">
-                            <div className="flex items-center mb-4">
-                                <div className="flex items-center flex-1">
-                                    <span className="text-3xl mr-2">{userFaction.emoji}</span>
-                                    <span className="font-bold" style={{ color: userFaction.color }}>{userFaction.name}</span>
-                                </div>
-                                <div className="mx-4">🤝</div>
-                                <div className="flex items-center flex-1">
-                                    <span className="text-3xl mr-2">{selectedFaction.emoji}</span>
-                                    <span className="font-bold" style={{ color: selectedFaction.color }}>{selectedFaction.name}</span>
-                                </div>
-                            </div>
-                            
-                            <div className="flex space-x-2">
-                                <button
-                                    onClick={handleFormAlliance}
-                                    disabled={isForming}
-                                    className={`flex-1 py-2 rounded ${
-                                        isForming 
-                                            ? 'bg-gray-600 cursor-not-allowed' 
-                                            : 'bg-blue-600 hover:bg-blue-700'
-                                    } text-white transition-colors`}
-                                >
-                                    {isForming ? 'Forming...' : 'Confirm Alliance'}
-                                </button>
-                                
-                                <button
-                                    onClick={() => setSelectedFaction(null)}
-                                    disabled={isForming}
-                                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div>
-                            <p className="mb-2 text-gray-300">Select a faction to form an alliance with:</p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                {factions
-                                    .filter(f => f.id !== userFaction.id && !isAllied(f.id, userFaction.id))
-                                    .map(faction => (
-                                        <motion.button
-                                            key={faction.id}
-                                            className="p-2 bg-gray-700 rounded-lg text-left hover:bg-gray-600 transition-colors"
-                                            whileHover={{ scale: 1.05 }}
-                                            onClick={() => setSelectedFaction(faction)}
-                                        >
-                                            <div className="flex items-center">
-                                                <span className="text-2xl mr-2">{faction.emoji}</span>
-                                                <div>
-                                                    <p className="font-semibold" style={{ color: faction.color }}>{faction.name}</p>
-                                                    <p className="text-xs text-gray-300">Power: {faction.power}</p>
-                                                </div>
-                                            </div>
-                                        </motion.button>
-                                    ))
-                                }
-                            </div>
-                            
-                            {factions.filter(f => f.id !== userFaction.id && !isAllied(f.id, userFaction.id)).length === 0 && (
-                                <p className="text-gray-400 text-center py-4">No available factions to ally with</p>
-                            )}
-                        </div>
-                    )}
-                </div>
+        <div className="container mx-auto px-4 py-12">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+            >
+                <h1 className="text-3xl font-bold mb-6">Alliance Manager</h1>
                 
-                <div className="p-4 bg-gray-800 rounded-lg">
-                    <h3 className="text-xl font-bold mb-4">Your Alliances</h3>
-                    
-                    {alliances
-                        .filter(a => a.faction1Id === userFaction.id || a.faction2Id === userFaction.id)
-                        .map(alliance => {
-                            const alliedFactionId = alliance.faction1Id === userFaction.id 
-                                ? alliance.faction2Id 
-                                : alliance.faction1Id;
-                            const alliedFaction = factions.find(f => f.id === alliedFactionId);
-                            
-                            return (
-                                <div key={alliance.id} className="mb-4 p-3 bg-gray-700 rounded-lg">
-                                    <div className="flex items-center">
-                                        <div className="flex items-center flex-1">
-                                            <span className="text-2xl mr-2">{userFaction.emoji}</span>
-                                            <span className="font-semibold" style={{ color: userFaction.color }}>{userFaction.name}</span>
+                {userFaction ? (
+                    <div className={`p-6 rounded-lg ${getFactionBgColor(userFaction)} mb-8`}>
+                        <h2 className="text-xl font-bold mb-4">Your Faction</h2>
+                        <div className="flex items-center">
+                            <div className="text-4xl mr-4">{userFaction.emoji}</div>
+                            <div>
+                                <div className={`text-xl font-bold ${getFactionColor(userFaction)}`}>{userFaction.name}</div>
+                                <div className="text-sm text-gray-400">Power: {userFaction.power} | Members: {userFaction.members}</div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="bg-gray-800 p-6 rounded-lg mb-8">
+                        <p className="text-gray-400">You haven't joined a faction yet. Join a faction to form alliances.</p>
+                    </div>
+                )}
+                
+                {userFaction && (
+                    <>
+                        <h2 className="text-xl font-bold mb-4">Available Factions for Alliance</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {factions
+                                .filter(faction => faction.id !== userFaction.id)
+                                .map(faction => (
+                                    <motion.div
+                                        key={faction.id}
+                                        className={`p-4 rounded-lg border ${selectedFaction?.id === faction.id ? 'border-purple-500' : 'border-gray-700'} ${getFactionBgColor(faction)} cursor-pointer`}
+                                        whileHover={{ scale: 1.02 }}
+                                        onClick={() => setSelectedFaction(faction)}
+                                    >
+                                        <div className="flex items-center">
+                                            <div className="text-3xl mr-3">{faction.emoji}</div>
+                                            <div className="flex-grow">
+                                                <div className={`font-bold ${getFactionColor(faction)}`}>{faction.name}</div>
+                                                <div className="text-xs text-gray-400">Power: {faction.power} | Victories: {faction.victories}</div>
+                                            </div>
+                                            <div className="text-xs px-2 py-1 bg-gray-700 rounded-full">
+                                                {faction.members} members
+                                            </div>
                                         </div>
-                                        <div className="mx-2">🤝</div>
-                                        <div className="flex items-center flex-1">
-                                            <span className="text-2xl mr-2">{alliedFaction?.emoji}</span>
-                                            <span className="font-semibold" style={{ color: alliedFaction?.color }}>{alliedFaction?.name}</span>
-                                        </div>
+                                    </motion.div>
+                                ))}
+                        </div>
+                        
+                        {selectedFaction && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                className="mt-6 p-4 bg-gray-800 rounded-lg"
+                            >
+                                <h3 className="font-bold mb-2">Propose Alliance</h3>
+                                <p className="text-sm text-gray-400 mb-4">
+                                    Forming an alliance with {selectedFaction.name} will allow both factions to coordinate attacks and share resources.
+                                </p>
+                                
+                                {!allianceProposed ? (
+                                    <button
+                                        className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
+                                        onClick={proposeAlliance}
+                                    >
+                                        Propose Alliance
+                                    </button>
+                                ) : (
+                                    <div>
+                                        {allianceStatus === 'pending' && (
+                                            <div className="text-yellow-400">
+                                                Alliance proposal pending... Waiting for response.
+                                            </div>
+                                        )}
+                                        {allianceStatus === 'accepted' && (
+                                            <div className="text-green-400">
+                                                Alliance accepted! You are now allied with {selectedFaction.name}.
+                                            </div>
+                                        )}
+                                        {allianceStatus === 'rejected' && (
+                                            <div className="text-red-400">
+                                                Alliance rejected. {selectedFaction.name} declined your proposal.
+                                            </div>
+                                        )}
                                     </div>
-                                    <p className="text-xs text-gray-400 mt-2">Formed on {formatDate(alliance.formed)}</p>
-                                </div>
-                            );
-                        })
-                    }
-                    
-                    {alliances.filter(a => a.faction1Id === userFaction.id || a.faction2Id === userFaction.id).length === 0 && (
-                        <p className="text-gray-400 text-center py-4">No active alliances</p>
-                    )}
-                </div>
-            </div>
+                                )}
+                            </motion.div>
+                        )}
+                    </>
+                )}
+            </motion.div>
         </div>
     );
 };

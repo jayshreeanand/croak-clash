@@ -25,27 +25,7 @@ const Home = () => {
 	return (
 		<div className="min-h-screen bg-black text-white overflow-hidden">
 			{/* Header */}
-			<header className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-sm z-50 border-b border-purple-900">
-				<div className="container mx-auto px-4 py-3 flex justify-between items-center">
-					<div className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-						AI Apocalypse Chain
-					</div>
-					<nav className="hidden md:flex space-x-6">
-						<Link href="/" className="text-white hover:text-gray-200 transition duration-300">
-							Home
-						</Link>
-						<Link href="/game" className="text-white hover:text-gray-200 transition duration-300">
-							Game
-						</Link>
-						<a href="#why-winner" className="text-white hover:text-gray-200 transition duration-300">
-							Why?
-						</a>
-						<a href="#how-to-build" className="text-white hover:text-gray-200 transition duration-300">
-							How we built it
-						</a>
-					</nav>
-				</div>
-			</header>
+			
 			
 			{/* Hero Section */}
 			<section className="relative h-screen flex items-center justify-center">
@@ -62,7 +42,7 @@ const Home = () => {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8 }}
 					>
-						{siteConfig.home.title}
+						AI Apocalypse Chain
 					</motion.h1>
 					
 					<motion.p 
@@ -71,7 +51,7 @@ const Home = () => {
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.8, delay: 0.3 }}
 					>
-						{siteConfig.home.description}
+						A chaos-driven blockchain built on NEAR where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive.
 					</motion.p>
 					
 					<motion.div
@@ -85,7 +65,7 @@ const Home = () => {
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
 							>
-								Join the Battle
+								Enter the Apocalypse
 							</motion.button>
 						</Link>
 					</motion.div>

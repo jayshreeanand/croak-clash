@@ -2,7 +2,7 @@ import { Chain, defineChain } from "viem";
 
 export const nearTestnet: Chain = /*#__PURE__*/ defineChain({
 	id: 1313161658,
-	name: "NEAR Testnet",
+	name: "Apocalypse Chain (NEAR)",
 	nativeCurrency: { name: "WNEAR", symbol: "WNEAR", decimals: 18 },
 	rpcUrls: {
 		default: {
