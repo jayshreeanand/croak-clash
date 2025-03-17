@@ -101,17 +101,28 @@ const BattleSimulator = () => {
                     setIsBattling(false);
                 }
                 
-                // Max rounds safety
-                if (round >= 10) {
-                    clearInterval(battleInterval);
-                    addLog(`⏱️ Battle timeout - no decisive victory`, 'system');
-                    setBattleResult({ winner: null, isDraw: true });
-                    setIsBattling(false);
-                }
-                
                 round++;
             }, 1000);
         }, 2000);
+        
+        // Safety cleanup
+        setTimeout(() => {
+            clearInterval(battleInterval);
+            if (isBattling) {
+                addLog(`⚠️ Battle timeout - no clear winner`, 'system');
+                setBattleResult({ winner: null, isDraw: true });
+                setIsBattling(false);
+            }
+        }, 30000);
+    };
+
+    const getFactionColor = (faction) => {
+        switch (faction) {
+            case 'AI Overlords': return 'text-blue-500';
+            case 'Rogue AI': return 'text-red-500';
+            case 'Human Resistance': return 'text-green-500';
+            default: return 'text-white';
+        }
     };
 
     const getHealthColor = (health) => {
@@ -124,8 +135,8 @@ const BattleSimulator = () => {
         switch (type) {
             case 'attack': return 'text-red-400';
             case 'defend': return 'text-blue-400';
-            case 'result': return 'text-yellow-300 font-bold';
-            case 'system': return 'text-purple-400 italic';
+            case 'result': return 'text-yellow-400 font-bold';
+            case 'system': return 'text-purple-400';
             default: return 'text-gray-300';
         }
     };
@@ -144,93 +155,94 @@ const BattleSimulator = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Agent Selection */}
-                <div className="lg:col-span-1">
-                    <div className="bg-gray-900 rounded-lg p-6 mb-6">
-                        <h2 className="text-xl font-bold mb-4">Select Attacker</h2>
-                        <div className="grid grid-cols-1 gap-3">
+                <div className="bg-gray-900 rounded-lg p-6">
+                    <h2 className="text-xl font-bold mb-4">Select Combatants</h2>
+                    
+                    <div className="mb-6">
+                        <h3 className="text-sm uppercase text-gray-500 mb-2">Attacker</h3>
+                        <div className="grid grid-cols-1 gap-2">
                             {agents.map(agent => (
                                 <motion.button
                                     key={`attacker-${agent.id}`}
-                                    className={`p-3 rounded-lg border ${attacker?.id === agent.id 
-                                        ? 'border-red-500 bg-gray-800' 
-                                        : 'border-gray-700 bg-gray-800/50 hover:bg-gray-800'} 
-                                        transition-all flex items-center`}
-                                    onClick={() => setAttacker(agent)}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={isBattling}
+                                    className={`p-3 rounded-lg flex items-center ${
+                                        attacker?.id === agent.id 
+                                            ? 'bg-purple-900 border border-purple-500' 
+                                            : 'bg-gray-800 border border-gray-700 hover:bg-gray-700'
+                                    } ${defender?.id === agent.id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    onClick={() => defender?.id !== agent.id && setAttacker(agent)}
+                                    disabled={defender?.id === agent.id}
+                                    whileHover={defender?.id !== agent.id ? { scale: 1.02 } : {}}
+                                    whileTap={defender?.id !== agent.id ? { scale: 0.98 } : {}}
                                 >
                                     <span className="text-2xl mr-3">{agent.emoji}</span>
-                                    <div className="text-left">
-                                        <div className="font-semibold">{agent.name}</div>
-                                        <div className="text-xs text-gray-400">{agent.faction}</div>
+                                    <div className="flex-grow text-left">
+                                        <div className="font-medium">{agent.name}</div>
+                                        <div className="text-xs text-gray-400">Power: {agent.power} | Health: {agent.health}%</div>
                                     </div>
-                                    <div className="ml-auto">
-                                        <div className="text-xs text-gray-400 mb-1">HP: {agent.health}%</div>
-                                        <div className="w-16 bg-gray-700 rounded-full h-1.5">
-                                            <div className={`${getHealthColor(agent.health)} h-1.5 rounded-full`} style={{ width: `${agent.health}%` }}></div>
-                                        </div>
-                                    </div>
+                                    <div className={`text-xs ${getFactionColor(agent.faction)}`}>{agent.faction}</div>
                                 </motion.button>
                             ))}
                         </div>
                     </div>
-
-                    <div className="bg-gray-900 rounded-lg p-6">
-                        <h2 className="text-xl font-bold mb-4">Select Defender</h2>
-                        <div className="grid grid-cols-1 gap-3">
-                            {agents.filter(a => a.id !== attacker?.id).map(agent => (
+                    
+                    <div className="mb-6">
+                        <h3 className="text-sm uppercase text-gray-500 mb-2">Defender</h3>
+                        <div className="grid grid-cols-1 gap-2">
+                            {agents.map(agent => (
                                 <motion.button
                                     key={`defender-${agent.id}`}
-                                    className={`p-3 rounded-lg border ${defender?.id === agent.id 
-                                        ? 'border-blue-500 bg-gray-800' 
-                                        : 'border-gray-700 bg-gray-800/50 hover:bg-gray-800'} 
-                                        transition-all flex items-center`}
-                                    onClick={() => setDefender(agent)}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={isBattling || attacker?.id === agent.id}
+                                    className={`p-3 rounded-lg flex items-center ${
+                                        defender?.id === agent.id 
+                                            ? 'bg-purple-900 border border-purple-500' 
+                                            : 'bg-gray-800 border border-gray-700 hover:bg-gray-700'
+                                    } ${attacker?.id === agent.id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    onClick={() => attacker?.id !== agent.id && setDefender(agent)}
+                                    disabled={attacker?.id === agent.id}
+                                    whileHover={attacker?.id !== agent.id ? { scale: 1.02 } : {}}
+                                    whileTap={attacker?.id !== agent.id ? { scale: 0.98 } : {}}
                                 >
                                     <span className="text-2xl mr-3">{agent.emoji}</span>
-                                    <div className="text-left">
-                                        <div className="font-semibold">{agent.name}</div>
-                                        <div className="text-xs text-gray-400">{agent.faction}</div>
+                                    <div className="flex-grow text-left">
+                                        <div className="font-medium">{agent.name}</div>
+                                        <div className="text-xs text-gray-400">Power: {agent.power} | Health: {agent.health}%</div>
                                     </div>
-                                    <div className="ml-auto">
-                                        <div className="text-xs text-gray-400 mb-1">HP: {agent.health}%</div>
-                                        <div className="w-16 bg-gray-700 rounded-full h-1.5">
-                                            <div className={`${getHealthColor(agent.health)} h-1.5 rounded-full`} style={{ width: `${agent.health}%` }}></div>
-                                        </div>
-                                    </div>
+                                    <div className={`text-xs ${getFactionColor(agent.faction)}`}>{agent.faction}</div>
                                 </motion.button>
                             ))}
                         </div>
                     </div>
+                    
+                    <div className="flex space-x-3">
+                        <motion.button
+                            className={`flex-1 py-3 px-4 rounded-lg font-medium ${
+                                !attacker || !defender || isBattling
+                                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                                    : 'bg-red-600 hover:bg-red-700 text-white'
+                            }`}
+                            onClick={startBattle}
+                            disabled={!attacker || !defender || isBattling}
+                            whileHover={!(!attacker || !defender || isBattling) ? { scale: 1.05 } : {}}
+                            whileTap={!(!attacker || !defender || isBattling) ? { scale: 0.95 } : {}}
+                        >
+                            {isBattling ? 'Battle in Progress...' : 'Start Battle'}
+                        </motion.button>
+                        
+                        <motion.button
+                            className="py-3 px-4 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium"
+                            onClick={resetBattle}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Reset
+                        </motion.button>
+                    </div>
                 </div>
-
+                
                 {/* Battle Arena */}
                 <div className="lg:col-span-2">
                     <div className="bg-gray-900 rounded-lg p-6 h-full flex flex-col">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold">Battle Arena</h2>
-                            <div className="flex space-x-2">
-                                <button 
-                                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    onClick={startBattle}
-                                    disabled={!attacker || !defender || isBattling}
-                                >
-                                    {isBattling ? 'Battling...' : 'Start Battle'}
-                                </button>
-                                <button 
-                                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors"
-                                    onClick={resetBattle}
-                                    disabled={isBattling}
-                                >
-                                    Reset
-                                </button>
-                            </div>
-                        </div>
-
+                        <h2 className="text-xl font-bold mb-4">Battle Arena</h2>
+                        
                         {/* Battle Visualization */}
                         {(attacker || defender) && (
                             <div className="mb-6 flex justify-center items-center">
