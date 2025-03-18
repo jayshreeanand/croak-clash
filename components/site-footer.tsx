@@ -7,7 +7,7 @@ export function Footer() {
         <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
                 <div className="text-sm">
-                    &copy; 2024 {siteConfig.title}. All rights reserved.
+                    &copy; 2025 {siteConfig.title}. All rights reserved.
                 </div>
                 <div>
                     <a href={siteConfig.githubUrl} className="text-white hover:text-gray-400" target="_blank">

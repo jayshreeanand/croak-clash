@@ -207,7 +207,7 @@ const GamePage = () => {
             {/* Footer */}
             <footer className="bg-gray-900 border-t border-gray-800 py-6">
                 <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
-                    <p>© 2023 AI Apocalypse Chain. The future is machine.</p>
+                    <p>© 2025 AI Apocalypse Chain. The future is machine.</p>
                 </div>
             </footer>
         </div>
