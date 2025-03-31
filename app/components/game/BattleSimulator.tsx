@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useAccount } from 'wagmi';
+import { useGameContract } from '../../hooks/useGameContract';
 
 interface Battle {
   id: number;
@@ -22,20 +24,44 @@ interface Battle {
     intelligence: number;
   };
   status: 'pending' | 'in_progress' | 'completed';
-  winner: string | null;
-  rewards: {
+  winner?: string;
+  rewards?: {
     experience: number;
     lilyPads: number;
     flies: number;
-  } | null;
+  };
 }
 
 const BattleSimulator = () => {
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
   const [showNewBattleModal, setShowNewBattleModal] = useState(false);
-
-  // Sample data - replace with actual data from blockchain
-  const battles: Battle[] = [
+  const [userFrogs, setUserFrogs] = useState<Array<{ id: number; name: string; faction: string }>>([
+    {
+      id: 1,
+      name: "Ribbit the Mighty",
+      faction: "Efrogs",
+    },
+    {
+      id: 2,
+      name: "Leap Master",
+      faction: "Efroglets",
+    }
+  ]);
+  const [opponentFrogs, setOpponentFrogs] = useState<Array<{ id: number; name: string; faction: string }>>([
+    {
+      id: 3,
+      name: "Swamp Ninja",
+      faction: "Rogue Frogs",
+    },
+    {
+      id: 4,
+      name: "Prince Tadpole",
+      faction: "Efroglets",
+    }
+  ]);
+  const [selectedAttackerId, setSelectedAttackerId] = useState<number | null>(null);
+  const [selectedDefenderId, setSelectedDefenderId] = useState<number | null>(null);
+  const [battles, setBattles] = useState<Battle[]>([
     {
       id: 1,
       attacker: {
@@ -81,10 +107,89 @@ const BattleSimulator = () => {
         intelligence: 90
       },
       status: 'in_progress',
-      winner: null,
-      rewards: null
+      winner: undefined,
+      rewards: undefined
     }
-  ];
+  ]);
+  const { address } = useAccount();
+  const { startBattle, getFrogAttributes } = useGameContract();
+
+  useEffect(() => {
+    const loadFrogs = async () => {
+      if (!address) return;
+      // Load user's frogs from contract
+      // This is a placeholder - implement actual loading logic
+      setUserFrogs([
+        {
+          id: 1,
+          name: "Ribbit the Mighty",
+          faction: "Efrogs",
+        }
+      ]);
+      // Load opponent frogs
+      setOpponentFrogs([
+        {
+          id: 2,
+          name: "Croak Master",
+          faction: "Efroglets",
+        }
+      ]);
+    };
+    loadFrogs();
+  }, [address]);
+
+  const handleStartBattle = async () => {
+    if (!selectedAttackerId || !selectedDefenderId) return;
+    
+    try {
+      // Get the selected frogs
+      const attacker = userFrogs.find(f => f.id === selectedAttackerId);
+      const defender = opponentFrogs.find(f => f.id === selectedDefenderId);
+      
+      if (!attacker || !defender) {
+        console.error('Selected frogs not found');
+        return;
+      }
+
+      // Create a new battle with mock data
+      const newBattle: Battle = {
+        id: battles.length + 1,
+        attacker: {
+          name: attacker.name,
+          faction: attacker.faction,
+          level: Math.floor(Math.random() * 5) + 1,
+          strength: Math.floor(Math.random() * 100) + 50,
+          agility: Math.floor(Math.random() * 100) + 50,
+          intelligence: Math.floor(Math.random() * 100) + 50
+        },
+        defender: {
+          name: defender.name,
+          faction: defender.faction,
+          level: Math.floor(Math.random() * 5) + 1,
+          strength: Math.floor(Math.random() * 100) + 50,
+          agility: Math.floor(Math.random() * 100) + 50,
+          intelligence: Math.floor(Math.random() * 100) + 50
+        },
+        status: 'in_progress',
+        winner: undefined,
+        rewards: undefined
+      };
+
+      // Add the new battle to the list
+      setBattles(prevBattles => [...prevBattles, newBattle]);
+
+      // Close modal and reset selections
+      setShowNewBattleModal(false);
+      setSelectedAttackerId(null);
+      setSelectedDefenderId(null);
+
+      // Show success message
+      alert('Battle started successfully!');
+    } catch (error) {
+      console.error('Failed to start battle:', error);
+      alert('Failed to start battle. Please try again.');
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -187,31 +292,60 @@ const BattleSimulator = () => {
       {/* New Battle Modal */}
       {showNewBattleModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-800 rounded-lg p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4 text-green-400">Start New Battle</h2>
-            <p className="text-gray-400 mb-6">
-              Select your frog warrior and choose an opponent to battle. The winner will receive experience points and resources.
-            </p>
-            <div className="space-y-4">
+          <div className="bg-gray-800 rounded-lg p-8 max-w-2xl w-full">
+            <div className="flex justify-between items-start mb-6">
               <div>
-                <label className="block text-gray-400 mb-2">Your Warrior</label>
-                <select className="w-full bg-gray-700 text-white rounded-lg p-2">
-                  <option value="">Select your warrior</option>
-                  <option value="ribbit">Ribbit the Mighty</option>
-                  <option value="leap">Leap Master</option>
-                  <option value="ninja">Swamp Ninja</option>
+                <h2 className="text-2xl font-bold text-green-400">Start New Battle</h2>
+                <p className="text-gray-400 mt-2">
+                  Choose your warrior and opponent for the battle.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowNewBattleModal(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Select Your Warrior
+                </label>
+                <select
+                  className="w-full bg-gray-700 text-white rounded-lg p-2"
+                  value={selectedAttackerId || ''}
+                  onChange={(e) => setSelectedAttackerId(Number(e.target.value))}
+                >
+                  <option value="">Choose a warrior</option>
+                  {userFrogs.map((frog) => (
+                    <option key={frog.id} value={frog.id}>
+                      {frog.name} ({frog.faction})
+                    </option>
+                  ))}
                 </select>
               </div>
+
               <div>
-                <label className="block text-gray-400 mb-2">Opponent</label>
-                <select className="w-full bg-gray-700 text-white rounded-lg p-2">
-                  <option value="">Select opponent</option>
-                  <option value="prince">Prince Tadpole</option>
-                  <option value="queen">Swamp Queen</option>
-                  <option value="king">King Ribbit III</option>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Select Opponent
+                </label>
+                <select
+                  className="w-full bg-gray-700 text-white rounded-lg p-2"
+                  value={selectedDefenderId || ''}
+                  onChange={(e) => setSelectedDefenderId(Number(e.target.value))}
+                >
+                  <option value="">Choose an opponent</option>
+                  {opponentFrogs.map((frog) => (
+                    <option key={frog.id} value={frog.id}>
+                      {frog.name} ({frog.faction})
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
+
             <div className="flex justify-end space-x-4 mt-6">
               <button
                 onClick={() => setShowNewBattleModal(false)}
@@ -220,7 +354,9 @@ const BattleSimulator = () => {
                 Cancel
               </button>
               <button
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleStartBattle}
+                disabled={!selectedAttackerId || !selectedDefenderId}
               >
                 Start Battle
               </button>

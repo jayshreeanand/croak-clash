@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useAccount } from 'wagmi';
+import { useGameContract } from '../../hooks/useGameContract';
 
 interface Faction {
   name: string;
@@ -19,6 +21,38 @@ interface Faction {
 
 const FactionSelection = () => {
   const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
+  const [userFrogs, setUserFrogs] = useState<Array<{ id: number; name: string; faction: string }>>([]);
+  const { address } = useAccount();
+  const { joinFaction, getFrogAttributes, getFactionResources } = useGameContract();
+
+  useEffect(() => {
+    const loadUserFrogs = async () => {
+      if (!address) return;
+      // Load user's frogs from contract
+      // This is a placeholder - implement actual loading logic
+      setUserFrogs([
+        { id: 1, name: "Ribbit the Mighty", faction: "Efrogs" },
+        { id: 2, name: "Leap Master", faction: "Efroglets" }
+      ]);
+    };
+    loadUserFrogs();
+  }, [address]);
+
+  const handleJoinFaction = async (factionName: string) => {
+    if (!address || !userFrogs.length) return;
+    
+    const frogId = userFrogs[0].id; // Use first frog for now
+    const success = await joinFaction(factionName, frogId);
+    
+    if (success) {
+      setSelectedFaction(null);
+      // Refresh faction resources
+      const resources = await getFactionResources(factionName);
+      if (resources) {
+        // Update faction resources in UI
+      }
+    }
+  };
 
   const factions: Faction[] = [
     {
@@ -122,8 +156,13 @@ const FactionSelection = () => {
 
             <button
               className="w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleJoinFaction(faction.name);
+              }}
+              disabled={!address || !userFrogs.length}
             >
-              Join Faction
+              {!address ? "Connect Wallet" : !userFrogs.length ? "No Frogs Available" : "Join Faction"}
             </button>
           </motion.div>
         ))}
