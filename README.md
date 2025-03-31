@@ -50,6 +50,39 @@ A blockchain-based battle game where frog warriors compete for supremacy in the 
 - **IPFS**: Decentralized storage for NFT metadata
 - **The Graph**: Indexed blockchain data for efficient queries
 
+
+## Screenshots
+
+Home page
+<img width="1626" alt="Screenshot 2025-03-31 at 9 52 47 PM" src="https://github.com/user-attachments/assets/ef796d90-2e8b-48d8-9ef5-7c270de5f56a" />
+
+Features
+
+<img width="1600" alt="Screenshot 2025-03-31 at 9 55 03 PM" src="https://github.com/user-attachments/assets/a598f29c-30f7-4e65-bce5-e23fb45b4466" />
+
+<img width="1610" alt="Screenshot 2025-03-31 at 9 52 58 PM" src="https://github.com/user-attachments/assets/8034775a-d882-491b-b5fc-f5966c2befc7" />
+
+Metamask Login
+
+<img width="360" alt="Screenshot 2025-03-31 at 9 53 06 PM" src="https://github.com/user-attachments/assets/57fbbc4d-3656-4597-9bb3-5529d95039de" />
+
+<img width="1600" alt="Screenshot 2025-03-31 at 9 53 23 PM" src="https://github.com/user-attachments/assets/d216341e-3930-4f9a-a6a7-8369452d3398" />
+
+<img width="443" alt="Screenshot 2025-03-31 at 9 53 30 PM" src="https://github.com/user-attachments/assets/a106a013-c139-4f91-a935-d6512e34b363" />
+
+<img width="1586" alt="Screenshot 2025-03-31 at 9 53 41 PM" src="https://github.com/user-attachments/assets/24730088-77f0-4cd8-9a33-9da9b12f358f" />
+
+<img width="1583" alt="Screenshot 2025-03-31 at 9 53 50 PM" src="https://github.com/user-attachments/assets/1e27a149-ab7c-45e2-8928-93a35c808c61" />
+
+<img width="1585" alt="Screenshot 2025-03-31 at 9 54 01 PM" src="https://github.com/user-attachments/assets/b64a4ce9-0326-4f21-8a11-ae471ac3bd07" />
+
+<img width="661" alt="Screenshot 2025-03-31 at 9 54 08 PM" src="https://github.com/user-attachments/assets/f599da33-cde2-4848-b39f-5e16f708ca56" />
+
+<img width="1589" alt="Screenshot 2025-03-31 at 9 54 19 PM" src="https://github.com/user-attachments/assets/20778b32-0ae1-49a2-aa7b-fd0a38455905" />
+
+<img width="1545" alt="Screenshot 2025-03-31 at 9 54 30 PM" src="https://github.com/user-attachments/assets/2b603431-8cba-4a03-a1d4-0143ac2cfd4a" />
+
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -151,17 +184,3 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Linea blockchain team for their excellent L2 solution
-- OpenZeppelin for their secure smart contract templates
-- The Ethereum community for their continuous support
-
-## 📞 Support
-
-For support, join our [Discord](https://discord.gg/croak-clash) or open an issue in the repository.
-
----
-
-Made with 🐸 by the Croak Clash Team

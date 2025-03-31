@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
+import { resolve } from "path";
 
 dotenv.config();
 
@@ -14,22 +15,28 @@ const config: HardhatUserConfig = {
       }
     }
   },
+  paths: {
+    sources: "./contracts",
+    artifacts: "./artifacts",
+    cache: "./cache",
+    root: "."
+  },
   networks: {
     linea: {
       url: process.env.LINEA_RPC_URL || "https://rpc.linea.build",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 59144
     },
-    "linea-testnet": {
-      url: process.env.LINEA_TESTNET_RPC_URL || "https://rpc.goerli.linea.build",
+    "linea-sepolia": {
+      url: process.env.LINEA_SEPOLIA_RPC_URL || "https://rpc.sepolia.linea.build",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      chainId: 59140
+      chainId: 59141
     }
   },
   etherscan: {
     apiKey: {
       linea: process.env.LINEA_API_KEY || "",
-      "linea-testnet": process.env.LINEA_TESTNET_API_KEY || ""
+      "linea-sepolia": process.env.LINEA_SEPOLIA_API_KEY || ""
     },
     customChains: [
       {
@@ -41,11 +48,11 @@ const config: HardhatUserConfig = {
         }
       },
       {
-        network: "linea-testnet",
-        chainId: 59140,
+        network: "linea-sepolia",
+        chainId: 59141,
         urls: {
-          apiURL: "https://api-testnet.lineascan.build/api",
-          browserURL: "https://goerli.lineascan.build"
+          apiURL: "https://api-sepolia.lineascan.build/api",
+          browserURL: "https://sepolia.lineascan.build"
         }
       }
     ]
