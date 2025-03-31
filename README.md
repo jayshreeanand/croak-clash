@@ -2,6 +2,16 @@
 
 A blockchain-based battle game where frog warriors compete for supremacy in the digital swamp. Built on the Linea blockchain.
 
+## Contract Address
+
+Deployment Summary:
+
+1. CroakToken: 0x6B67219153376f8af0D0adB6dA34Dd5c67F93A68 - https://sepolia.lineascan.build/address/0x6B67219153376f8af0D0adB6dA34Dd5c67F93A68
+
+2. FrogNFT: 0x519eE44023F48eDc2215AeEC2c69Da7537fe34A3 - https://sepolia.lineascan.build/address/0x519eE44023F48eDc2215AeEC2c69Da7537fe34A3
+
+3. CroakClash: 0x351e2B2d88a5b61c7D57ccb8F5C3C4cF666046a1 - https://sepolia.lineascan.build/address/0x351e2B2d88a5b61c7D57ccb8F5C3C4cF666046a1
+
 ## 🌟 Features
 
 ### 🎮 Game Mechanics
@@ -50,7 +60,6 @@ A blockchain-based battle game where frog warriors compete for supremacy in the 
 - **IPFS**: Decentralized storage for NFT metadata
 - **The Graph**: Indexed blockchain data for efficient queries
 
-
 ## Screenshots
 
 Home page
@@ -81,7 +90,6 @@ Metamask Login
 <img width="1589" alt="Screenshot 2025-03-31 at 9 54 19 PM" src="https://github.com/user-attachments/assets/20778b32-0ae1-49a2-aa7b-fd0a38455905" />
 
 <img width="1545" alt="Screenshot 2025-03-31 at 9 54 30 PM" src="https://github.com/user-attachments/assets/2b603431-8cba-4a03-a1d4-0143ac2cfd4a" />
-
 
 ## 🚀 Getting Started
 

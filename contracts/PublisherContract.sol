@@ -13,6 +13,7 @@ contract PublisherContract {
 
     // Struct to represent a data entry
     struct Metadata {
+        string handle;
         string post;
         string creatorName;
         string creatorDescription;

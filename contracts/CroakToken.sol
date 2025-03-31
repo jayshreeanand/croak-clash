@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 contract CroakToken is ERC20, Ownable, Pausable {
     // Game contract address
@@ -17,9 +17,9 @@ contract CroakToken is ERC20, Ownable, Pausable {
     event TokensUnstaked(address indexed user, uint256 amount);
     event GameContractSet(address indexed gameContract);
     
-    constructor() ERC20("Croak Token", "CROAK") Ownable(msg.sender) {
-        // Mint initial supply to deployer
-        _mint(msg.sender, 1000000000 * 10 ** decimals());
+    constructor(address initialOwner) ERC20("Croak Token", "CROAK") Ownable(initialOwner) {
+        // Mint initial supply to owner
+        _mint(initialOwner, 1000000000 * 10 ** decimals());
     }
     
     // Set the game contract address

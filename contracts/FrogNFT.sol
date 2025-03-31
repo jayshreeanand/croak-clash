@@ -1,17 +1,16 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract FrogNFT is ERC721URIStorage, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-    
     // Game contract address
     address public gameContract;
+    
+    // Token ID counter
+    uint256 private _nextTokenId = 1;
     
     // Frog attributes
     struct FrogAttributes {
@@ -32,13 +31,33 @@ contract FrogNFT is ERC721URIStorage, Ownable {
     event FrogLeveledUp(uint256 indexed tokenId, uint256 newLevel);
     event GameContractSet(address indexed gameContract);
     
-    constructor() ERC721("Croak Clash Frogs", "FROG") Ownable(msg.sender) {}
+    constructor(address initialOwner) ERC721("Croak Clash Frogs", "FROG") Ownable(initialOwner) {
+    }
     
     // Set the game contract address
     function setGameContract(address _gameContract) external onlyOwner {
         require(_gameContract != address(0), "Invalid game contract address");
         gameContract = _gameContract;
         emit GameContractSet(_gameContract);
+    }
+    
+    // Internal level up function
+    function _levelUp(uint256 tokenId) internal {
+        require(_ownerOf(tokenId) != address(0), "Frog does not exist");
+        require(frogAttributes[tokenId].isActive, "Frog is not active");
+        
+        FrogAttributes storage frog = frogAttributes[tokenId];
+        require(frog.level < 10, "Frog already at max level");
+        
+        frog.level += 1;
+        frog.experience = 0; // Reset experience
+        
+        emit FrogLeveledUp(tokenId, frog.level);
+    }
+    
+    // External level up function
+    function levelUp(uint256 tokenId) external {
+        _levelUp(tokenId);
     }
     
     // Mint a new frog
@@ -56,9 +75,7 @@ contract FrogNFT is ERC721URIStorage, Ownable {
             "Invalid faction"
         );
         
-        _tokenIds.increment();
-        uint256 newTokenId = _tokenIds.current();
-        
+        uint256 newTokenId = _nextTokenId++;
         _mint(owner, newTokenId);
         
         // Set frog attributes
@@ -74,24 +91,15 @@ contract FrogNFT is ERC721URIStorage, Ownable {
         
         emit FrogMinted(owner, newTokenId, faction);
         
+        // Level up the frog using internal function
+        _levelUp(newTokenId);
+        
         return newTokenId;
-    }
-    
-    // Level up a frog
-    function levelUp(uint256 tokenId) external {
-        require(_exists(tokenId), "Frog does not exist");
-        require(frogAttributes[tokenId].isActive, "Frog is not active");
-        
-        FrogAttributes storage frog = frogAttributes[tokenId];
-        frog.level += 1;
-        frog.experience = 0; // Reset experience
-        
-        emit FrogLeveledUp(tokenId, frog.level);
     }
     
     // Add experience to a frog
     function addExperience(uint256 tokenId, uint256 amount) external {
-        require(_exists(tokenId), "Frog does not exist");
+        require(_ownerOf(tokenId) != address(0), "Frog does not exist");
         require(frogAttributes[tokenId].isActive, "Frog is not active");
         
         FrogAttributes storage frog = frogAttributes[tokenId];
@@ -99,13 +107,13 @@ contract FrogNFT is ERC721URIStorage, Ownable {
         
         // Level up if enough experience
         if (frog.experience >= 100) {
-            levelUp(tokenId);
+            _levelUp(tokenId);
         }
     }
     
     // Get frog attributes
     function getFrogAttributes(uint256 tokenId) external view returns (FrogAttributes memory) {
-        require(_exists(tokenId), "Frog does not exist");
+        require(_ownerOf(tokenId) != address(0), "Frog does not exist");
         return frogAttributes[tokenId];
     }
     
@@ -114,9 +122,24 @@ contract FrogNFT is ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, _tokenURI);
     }
     
-    // Override _burn to clean up attributes
-    function _burn(uint256 tokenId) internal override {
-        super._burn(tokenId);
-        delete frogAttributes[tokenId];
+    // Handle cleanup of frog attributes during burn
+    function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
+        address from = super._update(to, tokenId, auth);
+        
+        if (to == address(0)) { // This is a burn
+            delete frogAttributes[tokenId];
+        }
+        
+        return from;
+    }
+
+    // Override supportsInterface from ERC721URIStorage
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721URIStorage) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
+
+    // Override tokenURI from ERC721URIStorage
+    function tokenURI(uint256 tokenId) public view virtual override(ERC721URIStorage) returns (string memory) {
+        return super.tokenURI(tokenId);
     }
 } 
