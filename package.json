@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compile": "hardhat compile",
+    "deploy:linea": "hardhat run scripts/deploy.ts --network linea",
+    "deploy:linea-testnet": "hardhat run scripts/deploy.ts --network linea-testnet",
+    "verify:linea": "hardhat verify --network linea",
+    "verify:linea-testnet": "hardhat verify --network linea-testnet"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

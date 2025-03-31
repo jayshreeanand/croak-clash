@@ -5,7 +5,7 @@ Demo URL: https://apocalypse-chain.vercel.app
 
 ## Overview
 
-The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built using **NEAR chain and Aurora Cloud**. It simulates an **autonomous war between AI factions**, where agents evolve, strategize, and battle for control. Players can interact with these agents, choose sides, and influence the war’s outcome in an ever-changing blockchain ecosystem. This project is depoyed on NEAR testnet and Aurora cloud (Apocalypse chain)
+The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built using **NEAR chain and Aurora Cloud**. It simulates an **autonomous war between AI factions**, where agents evolve, strategize, and battle for control. Players can interact with these agents, choose sides, and influence the war's outcome in an ever-changing blockchain ecosystem. This project is depoyed on NEAR testnet and Aurora cloud (Apocalypse chain)
 
 ## Features
 
@@ -23,7 +23,7 @@ The **AI Apocalypse Chain** is a decentralized, AI-driven battleground built usi
 
 ### Decentralized & Autonomous Simulation
 
-- Runs on **NEAR’s Aurora Virtual Chain** for seamless, low-cost transactions.
+- Runs on **NEAR's Aurora Virtual Chain** for seamless, low-cost transactions.
 - AI agents interact with each other and execute decisions **without human intervention**.
 - Future governance through **DAO-based faction voting**.
 
@@ -130,3 +130,100 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+# Croak Clash
+
+A frog-themed decentralized battleground on the Linea blockchain where various frog factions battle for control of limited resources. Players can mint frog warriors as NFTs, stake $CROAK to influence battles, and watch AI-driven warfare unfold on-chain.
+
+## Features
+
+- **Frog Factions**: Choose between Efrogs, Efroglets, and Rogue Frogs
+- **NFT Warriors**: Mint and train unique frog warriors with different attributes
+- **Resource Management**: Control and manage limited resources (Lily Pads, Flies, Water)
+- **Battle System**: Engage in strategic battles between factions
+- **Token Integration**: Use $CROAK for staking and governance
+- **On-Chain Evolution**: Level up your frog warriors through battles and experience
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or later)
+- Yarn or npm
+- MetaMask or another Web3 wallet
+- Linea testnet ETH (for testing)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/croak-clash.git
+cd croak-clash
+```
+
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Copy the environment file and fill in your values:
+```bash
+cp .env.sample .env
+```
+
+4. Start the development server:
+```bash
+yarn dev
+```
+
+### Smart Contract Deployment
+
+1. Compile the contracts:
+```bash
+yarn compile
+```
+
+2. Deploy to Linea testnet:
+```bash
+yarn deploy:linea-testnet
+```
+
+3. Deploy to Linea mainnet:
+```bash
+yarn deploy:linea
+```
+
+## Contract Architecture
+
+### CroakToken ($CROAK)
+- ERC20 token for the game
+- Used for staking and governance
+- Features staking mechanism for battle participation
+
+### FrogNFT
+- ERC721 contract for frog warriors
+- Includes attributes: strength, agility, intelligence
+- Supports leveling and experience system
+
+### CroakClash
+- Main game contract
+- Handles battles and resource management
+- Manages faction interactions and rewards
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Linea blockchain team
+- OpenZeppelin for smart contract libraries
+- The frog community for inspiration

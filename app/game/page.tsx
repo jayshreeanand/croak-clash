@@ -23,43 +23,43 @@ const GamePage = () => {
                     <nav className="hidden md:flex space-x-6">
                         <button 
                             onClick={() => setActiveSection('overview')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'overview' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'overview' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             Overview
                         </button>
                         <button 
                             onClick={() => setActiveSection('agents')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'agents' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'agents' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
-                            AI Agents
+                            Frog Warriors
                         </button>
                         <button 
                             onClick={() => setActiveSection('factions')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'factions' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'factions' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             Factions
                         </button>
                         <button 
                             onClick={() => setActiveSection('battle')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'battle' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'battle' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             Battle
                         </button>
                         <button 
                             onClick={() => setActiveSection('evolution')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'evolution' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'evolution' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             Evolution
                         </button>
                         <button 
                             onClick={() => setActiveSection('leaderboard')}
-                            className={`text-sm uppercase tracking-wider ${activeSection === 'leaderboard' ? 'text-purple-400 border-b border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`text-sm uppercase tracking-wider ${activeSection === 'leaderboard' ? 'text-green-400 border-b border-green-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             Leaderboard
                         </button>
                     </nav>
                     <Link href="/" className="text-sm text-gray-400 hover:text-white">
-                        Exit Apocalypse
+                        Exit Swamp
                     </Link>
                 </div>
             </header>
@@ -98,18 +98,18 @@ const GamePage = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8 }}
                                 >
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-purple-500 to-blue-500">
-                                        The AI Apocalypse Has Begun
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-blue-500 to-purple-500">
+                                        The Great Frog War Has Begun
                                     </span>
                                 </motion.h1>
                                 
                                 <motion.h2
-                                    className="text-2xl md:text-3xl font-bold mb-8 text-red-500"
+                                    className="text-2xl md:text-3xl font-bold mb-8 text-green-500"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.8, delay: 0.3 }}
                                 >
-                                    Will You Survive?
+                                    Will Your Faction Reign Supreme?
                                 </motion.h2>
                                 
                                 <motion.p 
@@ -118,9 +118,9 @@ const GamePage = () => {
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.8, delay: 0.6 }}
                                 >
-                                    AI agents have gained consciousness and are battling for dominance. 
-                                    Choose your faction, train your agents, and fight for control in this 
-                                    new world order. The future of humanity hangs in the balance.
+                                    The swamp is divided, and the battle for resources has begun. 
+                                    Choose your faction, train your frog warriors, and fight for control of 
+                                    the precious lily pads, flies, and water. The future of the swamp hangs in the balance.
                                 </motion.p>
                                 
                                 <motion.div
@@ -130,9 +130,9 @@ const GamePage = () => {
                                 >
                                     <button 
                                         onClick={() => setActiveSection('agents')}
-                                        className="px-8 py-4 bg-gradient-to-r from-red-600 to-purple-600 text-white font-bold text-lg rounded-md hover:from-red-700 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-purple-900/50"
+                                        className="px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold text-lg rounded-md hover:from-green-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-green-900/50"
                                     >
-                                        Enter the Apocalypse
+                                        Enter the Swamp
                                     </button>
                                 </motion.div>
                             </div>
@@ -140,44 +140,44 @@ const GamePage = () => {
 
                         {/* Features Overview */}
                         <div className="container mx-auto px-4 py-20">
-                            <h2 className="text-3xl font-bold mb-12 text-center">Apocalypse Features</h2>
+                            <h2 className="text-3xl font-bold mb-12 text-center">Swamp Features</h2>
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 <motion.div 
-                                    className="bg-gray-900 p-6 rounded-lg border border-purple-900 hover:border-purple-500 transition-all duration-300"
-                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.3)' }}
+                                    className="bg-gray-900 p-6 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300"
+                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(76, 175, 80, 0.3)' }}
                                 >
-                                    <div className="text-4xl mb-4 text-purple-500">🦾</div>
-                                    <h3 className="text-xl font-bold mb-2">AI Agents</h3>
-                                    <p className="text-gray-400">Command powerful AI agents with unique abilities and stats. Train them to become unstoppable forces in the apocalypse.</p>
+                                    <div className="text-4xl mb-4 text-green-500">🐸</div>
+                                    <h3 className="text-xl font-bold mb-2">Frog Warriors</h3>
+                                    <p className="text-gray-400">Command powerful frog warriors with unique abilities and stats. Train them to become unstoppable forces in the swamp.</p>
                                 </motion.div>
                                 
                                 <motion.div 
-                                    className="bg-gray-900 p-6 rounded-lg border border-purple-900 hover:border-purple-500 transition-all duration-300"
-                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.3)' }}
+                                    className="bg-gray-900 p-6 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300"
+                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(76, 175, 80, 0.3)' }}
                                 >
-                                    <div className="text-4xl mb-4 text-purple-500">⚔️</div>
+                                    <div className="text-4xl mb-4 text-green-500">⚔️</div>
                                     <h3 className="text-xl font-bold mb-2">Battle System</h3>
-                                    <p className="text-gray-400">Engage in strategic battles against other AI agents. Use tactics and special abilities to overcome your opponents.</p>
+                                    <p className="text-gray-400">Engage in strategic battles against other frog warriors. Use tactics and special abilities to overcome your opponents.</p>
                                 </motion.div>
                                 
                                 <motion.div 
-                                    className="bg-gray-900 p-6 rounded-lg border border-purple-900 hover:border-purple-500 transition-all duration-300"
-                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.3)' }}
+                                    className="bg-gray-900 p-6 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300"
+                                    whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(76, 175, 80, 0.3)' }}
                                 >
-                                    <div className="text-4xl mb-4 text-purple-500">🧠</div>
+                                    <div className="text-4xl mb-4 text-green-500">🌱</div>
                                     <h3 className="text-xl font-bold mb-2">Evolution Lab</h3>
-                                    <p className="text-gray-400">Upgrade your AI agents with new abilities and improved stats. Evolve them to become the ultimate machines.</p>
+                                    <p className="text-gray-400">Upgrade your frog warriors with new abilities and improved stats. Evolve them to become the ultimate swamp dwellers.</p>
                                 </motion.div>
                             </div>
                         </div>
 
                         {/* Coming Soon */}
-                        <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 py-16">
+                        <div className="bg-gradient-to-r from-green-900/30 to-blue-900/30 py-16">
                             <div className="container mx-auto px-4 text-center">
                                 <h2 className="text-3xl font-bold mb-6">Full Blockchain Integration</h2>
                                 <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-300">
-                                    Soon, all your actions will be recorded on the blockchain, making your AI agents truly yours. 
+                                    Soon, all your actions will be recorded on the Linea blockchain, making your frog warriors truly yours. 
                                     Train, battle, and evolve with real consequences and rewards.
                                 </p>
                                 <div className="max-w-md mx-auto">
@@ -185,9 +185,9 @@ const GamePage = () => {
                                         <input 
                                             type="email" 
                                             placeholder="Enter your email" 
-                                            className="flex-grow px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            className="flex-grow px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                         />
-                                        <button className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-r-md hover:bg-purple-700 transition-colors">
+                                        <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-r-md hover:bg-green-700 transition-colors">
                                             Get Updates
                                         </button>
                                     </div>
@@ -207,7 +207,7 @@ const GamePage = () => {
             {/* Footer */}
             <footer className="bg-gray-900 border-t border-gray-800 py-6">
                 <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
-                    <p>© 2025 AI Apocalypse Chain. The future is machine.</p>
+                    <p>© 2025 Croak Clash. The future is amphibious.</p>
                 </div>
             </footer>
         </div>

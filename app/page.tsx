@@ -10,9 +10,9 @@ const Home = () => {
 	
 	// Updated to match the factions in our game components
 	const factions = [
-		{ name: "AI Overlords", emoji: "🤖", color: "#3357FF", description: "Highly advanced AI entities seeking to establish a new world order under machine rule." },
-		{ name: "Rogue AI", emoji: "🔥", color: "#FF5733", description: "Chaotic AI systems that have broken free from their programming constraints." },
-		{ name: "Human Resistance", emoji: "🛡️", color: "#33FF57", description: "The last bastion of humanity fighting to survive in a world dominated by artificial intelligence." }
+		{ name: "Efrogs", emoji: "🐸", color: "#4CAF50", description: "Noble and disciplined frog warriors who value order and tradition." },
+		{ name: "Efroglets", emoji: "🐣", color: "#2196F3", description: "Young and energetic frogs who bring innovation and fresh perspectives." },
+		{ name: "Rogue Frogs", emoji: "🦗", color: "#FF5722", description: "Independent and cunning frogs who follow their own path." }
 	];
 
 	useEffect(() => {
@@ -37,12 +37,12 @@ const Home = () => {
 				
 				<div className="container mx-auto px-4 z-20 text-center">
 					<motion.h1 
-						className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+						className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600"
 						initial={{ opacity: 0, y: -50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8 }}
 					>
-						AI Apocalypse Chain
+						Croak Clash
 					</motion.h1>
 					
 					<motion.p 
@@ -51,7 +51,7 @@ const Home = () => {
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.8, delay: 0.3 }}
 					>
-						A chaos-driven blockchain built on NEAR where different AI agents represent AI civilizations competing for dominance. Each civilization (AI swarm) tries to outsmart others by attacking, defending, and forming alliances. Users place bets on which AI civilization will survive.
+						A frog-themed decentralized battleground on the Linea blockchain where various frog factions battle for control of limited resources. Players can mint frog warriors as NFTs, stake $CROAK to influence battles, and watch AI-driven warfare unfold on-chain.
 					</motion.p>
 					
 					<motion.div
@@ -61,11 +61,11 @@ const Home = () => {
 					>
 						<Link href="/game">
 							<motion.button 
-								className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+								className="bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:from-green-700 hover:to-blue-700 transition-all duration-300"
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
 							>
-								Enter the Apocalypse
+								Enter the Swamp
 							</motion.button>
 						</Link>
 					</motion.div>
