@@ -17,21 +17,23 @@ export function Account() {
     const shortAddress = abbreviate(address || '', 6)
 
     return (
-        <div>
-            {ensAvatar && <img alt="ENS Avatar" src={ensAvatar} />}
-            {shortAddress && (
-                <span className="mx-2">
-                    {ensName ? `${ensName} (${shortAddress})` : shortAddress}
-                    {/* {video && ` - ${video}} ETH`} */}&nbsp;(
-                    <button
-                        className="text-blue-500 underline"
-                        onClick={() => disconnect()}
-                    >
-                        Disconnect
-                    </button>
-                    )
-                </span>
+        <div className="flex items-center space-x-2">
+            {ensAvatar && (
+                <img 
+                    alt="ENS Avatar" 
+                    src={ensAvatar} 
+                    className="w-6 h-6 rounded-full"
+                />
             )}
+            <span className="text-gray-300">
+                {ensName || shortAddress}
+            </span>
+            <button
+                onClick={() => disconnect()}
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+            >
+                (Disconnect)
+            </button>
         </div>
     )
 }

@@ -2,9 +2,9 @@
 
 import { useAccount } from "wagmi";
 import ConnectWallet from "./wallet/connect-wallet";
-import { SwitchNetwork } from "./wallet/switch-network";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const NavHeader = () => {
 	const { address } = useAccount();
@@ -19,30 +19,16 @@ const NavHeader = () => {
 	const isCrossfiConnect = pathname.includes("/creator/");
 
 	return (
-		<header className="flex items-center h-16 bg-white-800 text-black px-4  border-b-4  sticky top-0 z-50 bg-white">
-			<div className="flex items-center">
-				<a href="/" className="block">
-					<img src="logo.png" alt="CrossfiConnect Logo" className="h-8 w-auto fill-current" />
-				</a>
-				{/* <span className="ml-4 text-xl font-bold">CrossfiConnect</span> */}
-			</div>
-			{!isCrossfiConnect && (
-				<nav className="flex">
-					
-					|
-					<a href="/about" className="text-gray-500 hover:underline mx-4">
-						About
-					</a>
-					
-					{/* align right */}
-				</nav>
-			)}
-			<span className="ml-auto align-right justify-end">
-				<SwitchNetwork />
-			</span>
-			<span className="align-right justify-end">
+		<header className="flex items-center h-16 bg-gray-900 text-white px-4 border-b border-gray-800 sticky top-0 z-50">
+			<div className="container mx-auto flex items-center justify-between">
+				<Link href="/" className="flex items-center space-x-2">
+					<span className="text-2xl">🐸</span>
+					<span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">
+						Croak Clash
+					</span>
+				</Link>
 				<ConnectWallet />
-			</span>
+			</div>
 		</header>
 	);
 };

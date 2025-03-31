@@ -1,20 +1,22 @@
 import { Chain, defineChain } from "viem";
 
-export const nearTestnet: Chain = /*#__PURE__*/ defineChain({
-	id: 1313161658,
-	name: "Apocalypse Chain (NEAR)",
-	nativeCurrency: { name: "WNEAR", symbol: "WNEAR", decimals: 18 },
+export const nearTestnet = defineChain({
+	id: 1_313_161_555,
+	name: 'Linea Testnet',
+	network: 'linea-testnet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'Linea ETH',
+		symbol: 'ETH',
+	},
 	rpcUrls: {
-		default: {
-			http: ["https://0x4e4541ba.rpc.aurora-cloud.dev"],
-		},
+		default: { http: ['https://rpc.goerli.linea.build'] },
 	},
 	blockExplorers: {
 		default: {
-			name: "AI Apocalypse Chain Block Explorer",
-			url: "https://0x4e4541ba.explorer.aurora-cloud.dev",
-			apiUrl: "https://0x4e4541ba.explorer.aurora-cloud.dev/tx",
+			name: 'Croak Clash Block Explorer',
+			url: 'https://goerli.lineascan.build',
 		},
 	},
-	contracts: {},
-});
+	testnet: true,
+})

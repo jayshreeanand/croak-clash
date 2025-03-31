@@ -6,19 +6,18 @@ import { Button } from '../ui/button'
 
 export function WalletOptions() {
     const { connectors, connect } = useConnect()
+    const metamask = connectors.find(c => c.name === 'MetaMask')
 
-    async function connectWallet({ connector }: any) {
-        console.log('connect', connector)
-        connect({ connector })
-    }
+    if (!metamask) return null
 
-    return connectors.map((connector) => (
-        <WalletOption
-            key={connector.uid}
-            connector={connector}
-            onClick={connectWallet.bind(null, { connector })}
-        />
-    ))
+    return (
+        <button
+            className="px-4 py-2 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-300 font-medium"
+            onClick={() => connect({ connector: metamask })}
+        >
+            Login with MetaMask
+        </button>
+    )
 }
 
 function WalletOption({

@@ -2,31 +2,39 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { siteConfig } from "@/util/site-config";
 import Link from "next/link";
+
+const factions = [
+	{
+		name: "Efrogs",
+		emoji: "🐸",
+		description: "The technologically advanced frog civilization, masters of evolution and adaptation."
+	},
+	{
+		name: "Efroglets",
+		emoji: "🐣",
+		description: "The young and energetic frog warriors, quick to learn and eager to prove themselves."
+	},
+	{
+		name: "Rogue Frogs",
+		emoji: "🦗",
+		description: "The mysterious and unpredictable frog faction, masters of stealth and surprise."
+	}
+];
 
 const Home = () => {
 	const [activeAI, setActiveAI] = useState(0);
-	
-	// Updated to match the factions in our game components
-	const factions = [
-		{ name: "Efrogs", emoji: "🐸", color: "#4CAF50", description: "Noble and disciplined frog warriors who value order and tradition." },
-		{ name: "Efroglets", emoji: "🐣", color: "#2196F3", description: "Young and energetic frogs who bring innovation and fresh perspectives." },
-		{ name: "Rogue Frogs", emoji: "🦗", color: "#FF5722", description: "Independent and cunning frogs who follow their own path." }
-	];
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setActiveAI((prev) => (prev + 1) % factions.length);
 		}, 3000);
+
 		return () => clearInterval(interval);
 	}, []);
 
 	return (
 		<div className="min-h-screen bg-black text-white overflow-hidden">
-			{/* Header */}
-			
-			
 			{/* Hero Section */}
 			<section className="relative h-screen flex items-center justify-center">
 				<div className="absolute inset-0 z-0 flex items-center justify-center">
@@ -75,46 +83,78 @@ const Home = () => {
 			{/* Features Section */}
 			<section className="py-20 bg-gray-900">
 				<div className="container mx-auto px-4">
-					<h2 className="text-4xl font-bold mb-12 text-center">Choose Your Faction</h2>
+					<h2 className="text-4xl font-bold text-center mb-12 text-green-400">Features</h2>
+					
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<motion.div 
+							className="bg-gray-800 p-6 rounded-lg"
+							whileHover={{ y: -5 }}
+							transition={{ duration: 0.3 }}
+						>
+							<div className="text-4xl mb-4">🐸</div>
+							<h3 className="text-xl font-bold mb-2">Frog Warriors</h3>
+							<p className="text-gray-400">Mint and train unique frog warriors with special abilities and attributes.</p>
+						</motion.div>
+
+						<motion.div 
+							className="bg-gray-800 p-6 rounded-lg"
+							whileHover={{ y: -5 }}
+							transition={{ duration: 0.3 }}
+						>
+							<div className="text-4xl mb-4">⚔️</div>
+							<h3 className="text-xl font-bold mb-2">Battle System</h3>
+							<p className="text-gray-400">Engage in strategic battles with other frog warriors in the swamp.</p>
+						</motion.div>
+
+						<motion.div 
+							className="bg-gray-800 p-6 rounded-lg"
+							whileHover={{ y: -5 }}
+							transition={{ duration: 0.3 }}
+						>
+							<div className="text-4xl mb-4">🌱</div>
+							<h3 className="text-xl font-bold mb-2">Resource Management</h3>
+							<p className="text-gray-400">Control and manage limited resources like lily pads, flies, and water.</p>
+						</motion.div>
+					</div>
+				</div>
+			</section>
+
+			{/* Factions Section */}
+			<section className="py-20">
+				<div className="container mx-auto px-4">
+					<h2 className="text-4xl font-bold text-center mb-12 text-green-400">Choose Your Faction</h2>
 					
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						{factions.map((faction, index) => (
 							<motion.div 
 								key={faction.name}
-								className="bg-gray-800 p-6 rounded-lg shadow-lg"
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: index * 0.1 }}
-								viewport={{ once: true }}
+								className="bg-gray-800 p-6 rounded-lg text-center"
+								whileHover={{ y: -5 }}
+								transition={{ duration: 0.3 }}
 							>
-								<div className="text-4xl mb-4" style={{ color: faction.color }}>{faction.emoji}</div>
-								<h3 className="text-2xl font-bold mb-2" style={{ color: faction.color }}>{faction.name}</h3>
-								<p className="text-gray-300 mb-4">{faction.description}</p>
-								<Link href="/game">
-									<button 
-										className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
-									>
-										Select Faction
-									</button>
-								</Link>
+								<div className="text-6xl mb-4">{faction.emoji}</div>
+								<h3 className="text-xl font-bold mb-2">{faction.name}</h3>
+								<p className="text-gray-400">{faction.description}</p>
 							</motion.div>
 						))}
 					</div>
 				</div>
 			</section>
 
-			{/* Call to Action */}
-			<section className="py-20 bg-gradient-to-r from-purple-900 to-blue-900">
+			{/* CTA Section */}
+			<section className="py-20 bg-gradient-to-r from-green-900/30 to-blue-900/30">
 				<div className="container mx-auto px-4 text-center">
-					<h2 className="text-4xl font-bold mb-6">Ready to Join the AI Apocalypse?</h2>
-					<p className="text-xl mb-8 max-w-2xl mx-auto">Create your faction, form alliances, and battle for supremacy in the AI Apocalypse Chain.</p>
+					<h2 className="text-3xl font-bold mb-6">Ready to Join the Battle?</h2>
+					<p className="text-xl mb-8 max-w-2xl mx-auto text-gray-300">
+						Create your faction, form alliances, and battle for supremacy in the swamp.
+					</p>
 					<Link href="/game">
 						<motion.button 
-							className="bg-white text-purple-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-all duration-300"
+							className="bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:from-green-700 hover:to-blue-700 transition-all duration-300"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 						>
-							Enter the Arena Now
+							Enter the Swamp
 						</motion.button>
 					</Link>
 				</div>
