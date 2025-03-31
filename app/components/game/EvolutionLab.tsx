@@ -3,343 +3,276 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-// Mock data for AI agents
-const mockAgents = [
-    { id: 1, name: "DoomBot", emoji: "🦾", faction: "AI Overlords", power: 89, health: 70, defense: 65, speed: 75, intelligence: 80, evolution: 2 },
-    { id: 2, name: "CyberReaper", emoji: "☠️", faction: "Rogue AI", power: 95, health: 50, defense: 40, speed: 90, intelligence: 85, evolution: 3 },
-    { id: 3, name: "SentinelX", emoji: "👁️", faction: "AI Overlords", power: 78, health: 85, defense: 70, speed: 60, intelligence: 75, evolution: 1 },
-    { id: 4, name: "Guardian-7", emoji: "🛡️", faction: "Human Resistance", power: 75, health: 90, defense: 85, speed: 50, intelligence: 65, evolution: 2 },
-];
-
-// Upgrade options
-const upgradeOptions = [
-    { id: 1, name: "Attack Boost", description: "Increase attack power by 10 points", stat: "power", value: 10, cost: 100, icon: "⚔️" },
-    { id: 2, name: "Defense Matrix", description: "Increase defense by 15 points", stat: "defense", value: 15, cost: 120, icon: "🛡️" },
-    { id: 3, name: "Health Regeneration", description: "Restore 20% health", stat: "health", value: 20, cost: 80, icon: "❤️" },
-    { id: 4, name: "Speed Enhancement", description: "Increase speed by 12 points", stat: "speed", value: 12, cost: 90, icon: "⚡" },
-    { id: 5, name: "Neural Upgrade", description: "Increase intelligence by 8 points", stat: "intelligence", value: 8, cost: 150, icon: "🧠" },
-    { id: 6, name: "Evolution Catalyst", description: "Advance to the next evolution stage", stat: "evolution", value: 1, cost: 500, icon: "🔆" },
-];
+interface FrogWarrior {
+  id: number;
+  name: string;
+  faction: string;
+  level: number;
+  strength: number;
+  agility: number;
+  intelligence: number;
+  experience: number;
+  abilities: string[];
+  evolutionCost: {
+    experience: number;
+    lilyPads: number;
+    flies: number;
+  };
+}
 
 const EvolutionLab = () => {
-    const [selectedAgent, setSelectedAgent] = useState(null);
-    const [agents, setAgents] = useState(mockAgents);
-    const [credits, setCredits] = useState(1000);
-    const [upgradeHistory, setUpgradeHistory] = useState([]);
-    const [showUpgradeAnimation, setShowUpgradeAnimation] = useState(false);
-    const [upgradedStat, setUpgradedStat] = useState(null);
+  const [selectedFrog, setSelectedFrog] = useState<FrogWarrior | null>(null);
+  const [showEvolutionModal, setShowEvolutionModal] = useState(false);
 
-    const handleSelectAgent = (agent) => {
-        setSelectedAgent(agent);
-    };
+  // Sample data - replace with actual data from blockchain
+  const frogWarriors: FrogWarrior[] = [
+    {
+      id: 1,
+      name: "Ribbit the Mighty",
+      faction: "Efrogs",
+      level: 5,
+      strength: 85,
+      agility: 75,
+      intelligence: 90,
+      experience: 2500,
+      abilities: ["Power Jump", "Swamp Shield", "Tongue Whip"],
+      evolutionCost: {
+        experience: 1000,
+        lilyPads: 5,
+        flies: 200
+      }
+    },
+    {
+      id: 2,
+      name: "Leap Master",
+      faction: "Efroglets",
+      level: 3,
+      strength: 70,
+      agility: 95,
+      intelligence: 80,
+      experience: 1500,
+      abilities: ["Quick Hop", "Water Splash", "Camouflage"],
+      evolutionCost: {
+        experience: 800,
+        lilyPads: 3,
+        flies: 150
+      }
+    },
+    {
+      id: 3,
+      name: "Swamp Ninja",
+      faction: "Rogue Frogs",
+      level: 4,
+      strength: 75,
+      agility: 90,
+      intelligence: 85,
+      experience: 2000,
+      abilities: ["Stealth Leap", "Poison Dart", "Swamp Mist"],
+      evolutionCost: {
+        experience: 900,
+        lilyPads: 4,
+        flies: 180
+      }
+    }
+  ];
 
-    const handleUpgrade = (upgrade) => {
-        if (credits < upgrade.cost) return;
-        
-        // Apply upgrade
-        const updatedAgents = agents.map(agent => {
-            if (agent.id === selectedAgent.id) {
-                const updatedAgent = { ...agent };
-                
-                if (upgrade.stat === 'health' && upgrade.value <= 100) {
-                    // For health, it's a percentage restoration
-                    updatedAgent.health = Math.min(100, agent.health + upgrade.value);
-                } else {
-                    // For other stats, it's a direct increase
-                    updatedAgent[upgrade.stat] += upgrade.value;
-                }
-                
-                return updatedAgent;
-            }
-            return agent;
-        });
-        
-        // Show upgrade animation
-        setUpgradedStat(upgrade.stat);
-        setShowUpgradeAnimation(true);
-        setTimeout(() => setShowUpgradeAnimation(false), 2000);
-        
-        // Update state
-        setAgents(updatedAgents);
-        setSelectedAgent(updatedAgents.find(a => a.id === selectedAgent.id));
-        setCredits(credits - upgrade.cost);
-        
-        // Add to history
-        setUpgradeHistory([
-            {
-                id: Date.now(),
-                agentName: selectedAgent.name,
-                upgradeName: upgrade.name,
-                stat: upgrade.stat,
-                value: upgrade.value,
-                timestamp: new Date().toISOString()
-            },
-            ...upgradeHistory
-        ]);
-    };
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-green-500">Evolution Lab</h1>
+        <p className="text-gray-400">
+          Train and evolve your frog warriors to become stronger and unlock new abilities.
+        </p>
+      </div>
 
-    const getStatColor = (stat) => {
-        switch (stat) {
-            case 'power': return 'text-red-400';
-            case 'defense': return 'text-blue-400';
-            case 'health': return 'text-green-400';
-            case 'speed': return 'text-yellow-400';
-            case 'intelligence': return 'text-purple-400';
-            case 'evolution': return 'text-pink-400';
-            default: return 'text-white';
-        }
-    };
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {frogWarriors.map((frog) => (
+          <motion.div
+            key={frog.id}
+            className="bg-gray-800 rounded-lg p-6 border border-green-900 hover:border-green-500 transition-all duration-300"
+            whileHover={{ y: -5 }}
+            onClick={() => setSelectedFrog(frog)}
+          >
+            <div className="flex items-center mb-4">
+              <div className="w-16 h-16 bg-gray-700 rounded-full mr-4 flex items-center justify-center text-4xl">
+                🐸
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-green-400">{frog.name}</h3>
+                <p className="text-gray-400">{frog.faction}</p>
+              </div>
+            </div>
 
-    const getStatIcon = (stat) => {
-        switch (stat) {
-            case 'power': return '⚔️';
-            case 'defense': return '🛡️';
-            case 'health': return '❤️';
-            case 'speed': return '⚡';
-            case 'intelligence': return '🧠';
-            case 'evolution': return '🔆';
-            default: return '📊';
-        }
-    };
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Level</span>
+                <span className="text-green-400">{frog.level}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Experience</span>
+                <span className="text-green-400">{frog.experience}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Strength</span>
+                <span className="text-green-400">{frog.strength}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Agility</span>
+                <span className="text-green-400">{frog.agility}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Intelligence</span>
+                <span className="text-green-400">{frog.intelligence}</span>
+              </div>
+            </div>
 
-    const getEvolutionStage = (level) => {
-        switch (level) {
-            case 1: return 'Basic';
-            case 2: return 'Advanced';
-            case 3: return 'Superior';
-            case 4: return 'Ultimate';
-            default: return 'Prototype';
-        }
-    };
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Abilities</h4>
+              <div className="flex flex-wrap gap-2">
+                {frog.abilities.map((ability, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-gray-700 text-green-400 rounded-full text-sm"
+                  >
+                    {ability}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-    return (
-        <div className="container mx-auto px-4 py-12">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-8"
+            <div className="bg-gray-900 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Evolution Cost</h4>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Experience</span>
+                  <span className="text-white">{frog.evolutionCost.experience}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Lily Pads</span>
+                  <span className="text-white">{frog.evolutionCost.lilyPads}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Flies</span>
+                  <span className="text-white">{frog.evolutionCost.flies}</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="w-full mt-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedFrog(frog);
+                setShowEvolutionModal(true);
+              }}
             >
-                <h1 className="text-4xl font-bold mb-2">AI Evolution Lab</h1>
-                <p className="text-gray-400">Upgrade and evolve your AI agents to increase their capabilities</p>
-            </motion.div>
+              Evolve
+            </button>
+          </motion.div>
+        ))}
+      </div>
 
-            <div className="flex items-center justify-between mb-8">
-                <div className="text-lg">
-                    <span className="text-gray-400">Available $WNEAR:</span> 
-                    <span className="ml-2 font-bold text-yellow-400">{credits}</span>
-                </div>
-                <button 
-                    className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-md transition-colors"
-                    onClick={() => setCredits(credits + 200)}
-                >
-                    + Get 200 $WNEAR
-                </button>
+      {/* Evolution Modal */}
+      {showEvolutionModal && selectedFrog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-8 max-w-2xl w-full">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-green-400">Evolve {selectedFrog.name}</h2>
+                <p className="text-gray-400 mt-2">
+                  Enhance your frog warrior's abilities and unlock new powers.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowEvolutionModal(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                ✕
+              </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Agent Selection */}
+            <div className="grid grid-cols-2 gap-8 mb-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-green-400">Current Stats</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-gray-400">Level:</span>
+                    <span className="ml-2 text-white">{selectedFrog.level}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Strength:</span>
+                    <span className="ml-2 text-white">{selectedFrog.strength}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Agility:</span>
+                    <span className="ml-2 text-white">{selectedFrog.agility}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Intelligence:</span>
+                    <span className="ml-2 text-white">{selectedFrog.intelligence}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-green-400">After Evolution</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-gray-400">Level:</span>
+                    <span className="ml-2 text-white">{selectedFrog.level + 1}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Strength:</span>
+                    <span className="ml-2 text-white">{selectedFrog.strength + 5}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Agility:</span>
+                    <span className="ml-2 text-white">{selectedFrog.agility + 5}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Intelligence:</span>
+                    <span className="ml-2 text-white">{selectedFrog.intelligence + 5}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-900 rounded-lg p-4 mb-6">
+              <h3 className="text-xl font-semibold mb-4 text-green-400">Evolution Cost</h3>
+              <div className="space-y-2">
                 <div>
-                    <div className="bg-gray-900 rounded-lg p-6">
-                        <h2 className="text-xl font-bold mb-4">Select Agent</h2>
-                        
-                        <div className="grid grid-cols-1 gap-3">
-                            {agents.map(agent => (
-                                <motion.button
-                                    key={agent.id}
-                                    className={`p-3 rounded-lg border ${selectedAgent?.id === agent.id 
-                                        ? 'border-purple-500 bg-gray-800' 
-                                        : 'border-gray-700 bg-gray-800/50 hover:bg-gray-800'} 
-                                        transition-all flex items-center`}
-                                    onClick={() => handleSelectAgent(agent)}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <span className="text-2xl mr-3">{agent.emoji}</span>
-                                    <div className="text-left">
-                                        <div className="font-semibold">{agent.name}</div>
-                                        <div className="text-xs text-gray-400">{agent.faction}</div>
-                                    </div>
-                                    <div className="ml-auto text-right">
-                                        <div className="text-xs text-purple-400">Evolution: {getEvolutionStage(agent.evolution)}</div>
-                                        <div className="text-xs text-gray-400">Power: {agent.power}</div>
-                                    </div>
-                                </motion.button>
-                            ))}
-                        </div>
-                    </div>
+                  <span className="text-gray-400">Experience:</span>
+                  <span className="ml-2 text-white">{selectedFrog.evolutionCost.experience}</span>
                 </div>
-
-                {/* Evolution Interface */}
-                <div className="lg:col-span-2">
-                    {selectedAgent ? (
-                        <div className="bg-gray-900 rounded-lg p-6">
-                            <div className="flex flex-col md:flex-row md:items-center mb-6">
-                                <div className="flex items-center mb-4 md:mb-0">
-                                    <motion.div 
-                                        className="text-6xl mr-4"
-                                        animate={showUpgradeAnimation ? { 
-                                            scale: [1, 1.2, 1],
-                                            rotate: [0, 5, -5, 0]
-                                        } : {}}
-                                        transition={{ duration: 1 }}
-                                    >
-                                        {selectedAgent.emoji}
-                                    </motion.div>
-                                    <div>
-                                        <h2 className="text-2xl font-bold">{selectedAgent.name}</h2>
-                                        <p className="text-gray-400">{selectedAgent.faction}</p>
-                                        <p className="text-purple-400 text-sm">Evolution: {getEvolutionStage(selectedAgent.evolution)}</p>
-                                    </div>
-                                </div>
-                                
-                                <div className="md:ml-auto grid grid-cols-3 gap-3">
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('power')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'power' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.power}
-                                                </motion.span>
-                                            ) : (
-                                                selectedAgent.power
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Power</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('defense')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'defense' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.defense}
-                                                </motion.span>
-                                            ) : (
-                                                selectedAgent.defense
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Defense</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('health')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'health' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.health}%
-                                                </motion.span>
-                                            ) : (
-                                                `${selectedAgent.health}%`
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Health</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('speed')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'speed' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.speed}
-                                                </motion.span>
-                                            ) : (
-                                                selectedAgent.speed
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Speed</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('intelligence')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'intelligence' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.intelligence}
-                                                </motion.span>
-                                            ) : (
-                                                selectedAgent.intelligence
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Intelligence</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className={`text-lg font-bold ${getStatColor('evolution')}`}>
-                                            {showUpgradeAnimation && upgradedStat === 'evolution' ? (
-                                                <motion.span
-                                                    animate={{ scale: [1, 1.5, 1] }}
-                                                    transition={{ duration: 1 }}
-                                                >
-                                                    {selectedAgent.evolution}
-                                                </motion.span>
-                                            ) : (
-                                                selectedAgent.evolution
-                                            )}
-                                        </div>
-                                        <div className="text-xs text-gray-400">Evolution</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h3 className="text-lg font-bold mb-3">Available Upgrades</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-                                {upgradeOptions.map(upgrade => (
-                                    <motion.button
-                                        key={upgrade.id}
-                                        className={`p-4 rounded-lg border border-gray-700 bg-gray-800/50 hover:bg-gray-800 transition-all flex items-start ${credits < upgrade.cost ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                        onClick={() => credits >= upgrade.cost && handleUpgrade(upgrade)}
-                                        whileHover={credits >= upgrade.cost ? { scale: 1.02 } : {}}
-                                        whileTap={credits >= upgrade.cost ? { scale: 0.98 } : {}}
-                                        disabled={credits < upgrade.cost}
-                                    >
-                                        <span className="text-2xl mr-3 mt-1">{upgrade.icon}</span>
-                                        <div className="flex-grow">
-                                            <div className="font-semibold">{upgrade.name}</div>
-                                            <div className="text-xs text-gray-400 mb-1">{upgrade.description}</div>
-                                            <div className="text-xs text-yellow-400">Cost: {upgrade.cost} credits</div>
-                                        </div>
-                                    </motion.button>
-                                ))}
-                            </div>
-                            
-                            <h3 className="text-lg font-bold mb-3">Upgrade History</h3>
-                            <div className="bg-gray-950 rounded-lg p-3 max-h-40 overflow-y-auto">
-                                {upgradeHistory.length > 0 ? (
-                                    <div className="space-y-2">
-                                        {upgradeHistory.map(log => (
-                                            <div key={log.id} className="text-sm border-b border-gray-800 pb-2">
-                                                <span className="text-gray-400">
-                                                    {new Date(log.timestamp).toLocaleTimeString()}:
-                                                </span> 
-                                                <span className="ml-2">
-                                                    Applied <span className={getStatColor(log.stat)}>{log.upgradeName}</span> to {log.agentName}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="text-gray-500 italic text-sm">No upgrades applied yet</div>
-                                )}
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="bg-gray-900 rounded-lg p-6 h-full flex items-center justify-center">
-                            <div className="text-center text-gray-500">
-                                <div className="text-5xl mb-4">🧪</div>
-                                <p className="text-xl">Select an agent to begin evolution</p>
-                            </div>
-                        </div>
-                    )}
+                <div>
+                  <span className="text-gray-400">Lily Pads:</span>
+                  <span className="ml-2 text-white">{selectedFrog.evolutionCost.lilyPads}</span>
                 </div>
+                <div>
+                  <span className="text-gray-400">Flies:</span>
+                  <span className="ml-2 text-white">{selectedFrog.evolutionCost.flies}</span>
+                </div>
+              </div>
             </div>
+
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setShowEvolutionModal(false)}
+                className="px-4 py-2 text-gray-400 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              >
+                Confirm Evolution
+              </button>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default EvolutionLab; 

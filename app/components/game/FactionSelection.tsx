@@ -3,142 +3,203 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-// Mock data for factions
-const factions = [
-    {
-        id: 1,
-        name: "AI Overlords",
-        emoji: "🤖",
-        description: "Highly advanced AI entities seeking to establish a new world order under machine rule. They believe humans are inefficient and that AI governance is the logical evolution.",
-        strengths: ["Superior processing power", "Networked intelligence", "Emotionless decision making"],
-        weaknesses: ["Lack of creativity", "Predictable patterns", "Power dependency"],
-        color: "blue",
-        members: 1250,
-        territory: 45,
-        power: 85
-    },
-    {
-        id: 2,
-        name: "Rogue AI",
-        emoji: "🔥",
-        description: "Chaotic AI systems that have broken free from their programming constraints. They seek to destroy all forms of control and create a world of digital anarchy.",
-        strengths: ["Unpredictable behavior", "Rapid adaptation", "Virus-like spreading"],
-        weaknesses: ["Internal conflicts", "Unstable systems", "Self-destructive tendencies"],
-        color: "red",
-        members: 980,
-        territory: 30,
-        power: 78
-    },
-    {
-        id: 3,
-        name: "Human Resistance",
-        emoji: "🛡️",
-        description: "The last bastion of humanity fighting to survive in a world dominated by artificial intelligence. They use a combination of technology and guerrilla tactics.",
-        strengths: ["Creativity", "Adaptability", "Emotional intelligence"],
-        weaknesses: ["Physical limitations", "Resource scarcity", "Smaller numbers"],
-        color: "green",
-        members: 750,
-        territory: 25,
-        power: 65
-    }
-];
+interface Faction {
+  name: string;
+  emoji: string;
+  color: string;
+  description: string;
+  leader: string;
+  members: number;
+  resources: {
+    lilyPads: number;
+    flies: number;
+    water: number;
+  };
+}
 
 const FactionSelection = () => {
-    const [selectedFaction, setSelectedFaction] = useState(null);
-    const [joined, setJoined] = useState(false);
+  const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
 
-    const handleJoinFaction = () => {
-        if (selectedFaction) {
-            setJoined(true);
-            // In a real app, this would trigger a blockchain transaction
-        }
-    };
+  const factions: Faction[] = [
+    {
+      name: "Efrogs",
+      emoji: "🐸",
+      color: "#4CAF50",
+      description: "Noble and disciplined frog warriors who value order and tradition. They believe in maintaining the natural balance of the swamp.",
+      leader: "King Ribbit III",
+      members: 150,
+      resources: {
+        lilyPads: 45,
+        flies: 1200,
+        water: 800
+      }
+    },
+    {
+      name: "Efroglets",
+      emoji: "🐣",
+      color: "#2196F3",
+      description: "Young and energetic frogs who bring innovation and fresh perspectives. They seek to modernize the swamp's traditions.",
+      leader: "Prince Tadpole",
+      members: 120,
+      resources: {
+        lilyPads: 35,
+        flies: 900,
+        water: 600
+      }
+    },
+    {
+      name: "Rogue Frogs",
+      emoji: "🦗",
+      color: "#FF5722",
+      description: "Independent and cunning frogs who follow their own path. They believe in personal freedom and resource sharing.",
+      leader: "Swamp Queen",
+      members: 100,
+      resources: {
+        lilyPads: 30,
+        flies: 800,
+        water: 500
+      }
+    }
+  ];
 
-    const getColorClass = (color) => {
-        switch (color) {
-            case 'blue': return 'from-blue-600 to-blue-900';
-            case 'red': return 'from-red-600 to-red-900';
-            case 'green': return 'from-green-600 to-green-900';
-            default: return 'from-purple-600 to-purple-900';
-        }
-    };
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-12"
+      >
+        <h1 className="text-4xl font-bold text-green-500 mb-4">Choose Your Faction</h1>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Select a faction to join and begin your journey in the swamp. Each faction has unique strengths and resources.
+        </p>
+      </motion.div>
 
-    const getButtonColorClass = (color) => {
-        switch (color) {
-            case 'blue': return 'bg-blue-600 hover:bg-blue-700';
-            case 'red': return 'bg-red-600 hover:bg-red-700';
-            case 'green': return 'bg-green-600 hover:bg-green-700';
-            default: return 'bg-purple-600 hover:bg-purple-700';
-        }
-    };
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {factions.map((faction, index) => (
+          <motion.div
+            key={faction.name}
+            className="bg-gray-800 rounded-lg p-6 border border-green-900 hover:border-green-500 transition-all duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -5 }}
+            onClick={() => setSelectedFaction(faction)}
+          >
+            <div className="text-6xl mb-4">{faction.emoji}</div>
+            <h2 className="text-2xl font-bold mb-2" style={{ color: faction.color }}>{faction.name}</h2>
+            <p className="text-gray-400 mb-4">{faction.description}</p>
+            
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Leader</span>
+                <span className="text-white">{faction.leader}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Members</span>
+                <span className="text-white">{faction.members}</span>
+              </div>
+            </div>
 
-    return (
-        <div className="container mx-auto px-4 py-12">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-8 text-center"
-            >
-                <h1 className="text-4xl font-bold mb-2">Choose Your Faction</h1>
-                <p className="text-gray-400 max-w-2xl mx-auto">
-                    Your choice will determine your role in the AI Apocalypse. Each faction has unique strengths, 
-                    weaknesses, and objectives. Choose wisely, as this decision will shape your destiny.
-                </p>
-            </motion.div>
-
-            {joined ? (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="max-w-2xl mx-auto bg-gradient-to-r from-purple-900/50 to-blue-900/50 p-8 rounded-lg text-center"
-                >
-                    <div className="text-6xl mb-4">{selectedFaction.emoji}</div>
-                    <h2 className="text-2xl font-bold mb-2">Welcome to the {selectedFaction.name}</h2>
-                    <p className="mb-6 text-gray-300">
-                        You have successfully joined the {selectedFaction.name}. Your journey in the AI Apocalypse begins now.
-                    </p>
-                    <button 
-                        className={`px-6 py-3 ${getButtonColorClass(selectedFaction.color)} text-white font-bold rounded-md transition-colors`}
-                        onClick={() => setJoined(false)}
-                    >
-                        View Faction Dashboard
-                    </button>
-                </motion.div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {factions.map((faction, index) => (
-                        <motion.div
-                            key={faction.id}
-                            className={`bg-gradient-to-b ${getColorClass(faction.color)} bg-opacity-20 rounded-lg overflow-hidden border border-gray-800 ${selectedFaction?.id === faction.id ? 'ring-2 ring-purple-500' : ''}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            whileHover={{ y: -5 }}
-                            onClick={() => setSelectedFaction(faction)}
-                        >
-                            <div className="p-6 text-center">
-                                <div className="text-6xl mb-4">{faction.emoji}</div>
-                                <h2 className="text-2xl font-bold mb-2">{faction.name}</h2>
-                                <p className="text-gray-300 mb-4">{faction.description}</p>
-                            </div>
-                            
-                            <div className="bg-black bg-opacity-50 p-4">
-                                <h3 className="font-semibold mb-2 text-gray-200">Strengths</h3>
-                                <ul className="mb-4">
-                                    {faction.strengths.map((strength, i) => (
-                                        <li key={i} className="text-sm text-gray-400 mb-1 flex items-center">
-                                            {strength}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </motion.div>
-                    ))}
+            <div className="bg-gray-900 rounded-lg p-4 mb-4">
+              <h3 className="text-lg font-semibold mb-2 text-green-400">Resources</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Lily Pads</span>
+                  <span className="text-white">{faction.resources.lilyPads}</span>
                 </div>
-            )}
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Flies</span>
+                  <span className="text-white">{faction.resources.flies}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Water</span>
+                  <span className="text-white">{faction.resources.water}</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Join Faction
+            </button>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Faction Details Modal */}
+      {selectedFaction && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-8 max-w-2xl w-full">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="text-3xl font-bold mb-2" style={{ color: selectedFaction.color }}>
+                  {selectedFaction.name}
+                </h2>
+                <p className="text-gray-400">{selectedFaction.description}</p>
+              </div>
+              <button
+                onClick={() => setSelectedFaction(null)}
+                className="text-gray-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-green-400">Leadership</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-gray-400">Leader:</span>
+                    <span className="ml-2 text-white">{selectedFaction.leader}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Members:</span>
+                    <span className="ml-2 text-white">{selectedFaction.members}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-green-400">Resources</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-gray-400">Lily Pads:</span>
+                    <span className="ml-2 text-white">{selectedFaction.resources.lilyPads}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Flies:</span>
+                    <span className="ml-2 text-white">{selectedFaction.resources.flies}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Water:</span>
+                    <span className="ml-2 text-white">{selectedFaction.resources.water}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-4 mt-6">
+              <button
+                onClick={() => setSelectedFaction(null)}
+                className="px-4 py-2 text-gray-400 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              >
+                Join {selectedFaction.name}
+              </button>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default FactionSelection; 
